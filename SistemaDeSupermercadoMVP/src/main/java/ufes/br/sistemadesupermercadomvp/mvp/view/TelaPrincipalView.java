@@ -1,6 +1,4 @@
-package ufes.br.cadastrodeproduto.mvp.view;
-
-import javax.swing.plaf.basic.BasicInternalFrameUI;
+package ufes.br.sistemadesupermercadomvp.mvp.view;
 
 /**
  *
@@ -110,6 +108,7 @@ public class TelaPrincipalView extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new TelaPrincipalView().setVisible(true);
             }

@@ -1,4 +1,4 @@
-package ufes.br.sistemadesupermercadomvp;
+package ufes.br.sistemadesupermercado;
 
 /**
  *

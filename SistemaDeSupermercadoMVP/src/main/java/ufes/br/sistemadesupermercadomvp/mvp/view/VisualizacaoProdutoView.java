@@ -1,4 +1,4 @@
-package ufes.br.cadastrodeproduto.mvp.view;
+package ufes.br.sistemadesupermercadomvp.mvp.view;
 
 /**
  *
@@ -84,13 +84,15 @@ public class VisualizacaoProdutoView extends javax.swing.JFrame {
                     .addComponent(lblPrecoVenda))
                 .addGap(48, 48, 48)
                 .addGroup(dpDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNomeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(dpDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(txtPrecoVenda, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
-                        .addComponent(txtPrecoCusto, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtMargem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(cbCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(34, 34, 34))
+                    .addGroup(dpDadosProdutoLayout.createSequentialGroup()
+                        .addGroup(dpDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtPrecoVenda, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
+                            .addComponent(txtPrecoCusto, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtMargem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(cbCategoria, 0, 478, Short.MAX_VALUE)
+                    .addComponent(txtNomeProduto))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         dpDadosProdutoLayout.setVerticalGroup(
             dpDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,7 +150,7 @@ public class VisualizacaoProdutoView extends javax.swing.JFrame {
                 .addGroup(dpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(dpPrincipalLayout.createSequentialGroup()
                         .addComponent(dpDadosProduto)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(10, Short.MAX_VALUE))
                     .addGroup(dpPrincipalLayout.createSequentialGroup()
                         .addComponent(btnVisualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
