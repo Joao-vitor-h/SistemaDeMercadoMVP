@@ -8,13 +8,16 @@ public class HistoricoPrecoModel {
     private LocalDate dataCalculo;
     private double percentualLucro;
     private double precoVenda;
+    private ProdutoModel produto;
 
-    public HistoricoPrecoModel(LocalDate dataCalculo, double percentualLucro, double precoVenda) {
+    public HistoricoPrecoModel(LocalDate dataCalculo, double percentualLucro, double precoVenda, ProdutoModel produto) {
         Objects.requireNonNull(dataCalculo, "A data está nula.");
+        Objects.requireNonNull(produto, "O produto está nulo.");
 
         this.dataCalculo = dataCalculo;
         this.percentualLucro = percentualLucro;
         this.precoVenda = precoVenda;
+        this.produto = produto;
     }
 
     public LocalDate getDataCalculo() {
@@ -29,15 +32,11 @@ public class HistoricoPrecoModel {
         return precoVenda;
     }
 
-    public void setDataCalculo(LocalDate dataCalculo) {
-        this.dataCalculo = dataCalculo;
-    }
-
-    public void setPercentualLucro(double percentualLucro) {
-        this.percentualLucro = percentualLucro;
-    }
-
-    public void setPrecoVenda(double precoVenda) {
-        this.precoVenda = precoVenda;
+    @Override
+    public String toString() {
+        return "Data do Cálculo: " + dataCalculo.getDayOfMonth() + "/" + dataCalculo.getMonthValue() + "/" + dataCalculo.getYear() + "\n" +
+               "Percentual de Lucro: R$" + percentualLucro + "\n" +
+               "Preço de Venda: R$" + precoVenda + "\n" +
+               "Produto: " + produto.getNome();
     }
 }

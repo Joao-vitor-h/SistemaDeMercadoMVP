@@ -1,5 +1,4 @@
-package ufes.br.sistemadesupermercadomvp.mvp.view;
-
+package ufes.br.sistemadesupermercado.mvp.view;
 /**
  *
  * @author João Vitor
