@@ -93,4 +93,7 @@ public class ProdutoRepository implements IProdutoRepository {
             produtoOpt.get().setCategoria(categoria);
         }
     }
+
+    @Override
+    public List<ProdutoModel> getProdutos() { return produtos; }
 }

@@ -3,6 +3,7 @@ package ufes.br.sistemadesupermercado.mvp.repository;
 import ufes.br.sistemadesupermercado.mvp.model.CategoriaModel;
 import ufes.br.sistemadesupermercado.mvp.model.ProdutoModel;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface IProdutoRepository {
@@ -17,4 +18,6 @@ public interface IProdutoRepository {
     void editarProduto(String nome, double precoCusto);
 
     void editarProduto(String nome, CategoriaModel categoria);
+
+    List<ProdutoModel> getProdutos();
 }

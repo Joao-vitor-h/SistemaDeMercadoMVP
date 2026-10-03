@@ -1,5 +1,7 @@
 package ufes.br.sistemadesupermercado.mvp.view;
 
+import javax.swing.*;
+
 /**
  *
  * @author João Vitor
@@ -34,7 +36,7 @@ public class HistoricoPrecoView extends javax.swing.JFrame {
         separador3 = new javax.swing.JSeparator();
         btnFechar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Histórico de Preços do Produto");
 
         dpHistorico.setBackground(new java.awt.Color(255, 255, 255));
@@ -159,41 +161,6 @@ public class HistoricoPrecoView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(HistoricoPrecoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(HistoricoPrecoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(HistoricoPrecoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(HistoricoPrecoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new HistoricoPrecoView().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFechar;
     private javax.swing.JDesktopPane dpHistorico;
@@ -207,4 +174,49 @@ public class HistoricoPrecoView extends javax.swing.JFrame {
     private javax.swing.JTextField txtCategoria;
     private javax.swing.JTextField txtProduto;
     // End of variables declaration//GEN-END:variables
+
+
+    public JButton getBtnFechar() {
+        return btnFechar;
+    }
+
+    public JDesktopPane getDpHistorico() {
+        return dpHistorico;
+    }
+
+    public JLabel getLblCategoria() {
+        return lblCategoria;
+    }
+
+    public JLabel getLblProduto() {
+        return lblProduto;
+    }
+
+    public JScrollPane getScrlHistorico() {
+        return scrlHistorico;
+    }
+
+    public JSeparator getSeparador1() {
+        return separador1;
+    }
+
+    public JSeparator getSeparador2() {
+        return separador2;
+    }
+
+    public JSeparator getSeparador3() {
+        return separador3;
+    }
+
+    public JTable getTblHistorico() {
+        return tblHistorico;
+    }
+
+    public JTextField getTxtCategoria() {
+        return txtCategoria;
+    }
+
+    public JTextField getTxtProduto() {
+        return txtProduto;
+    }
 }

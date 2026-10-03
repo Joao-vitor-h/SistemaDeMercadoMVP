@@ -1,4 +1,7 @@
 package ufes.br.sistemadesupermercado.mvp.view;
+
+import javax.swing.*;
+
 /**
  *
  * @author João Vitor
@@ -37,7 +40,7 @@ public class InclusaoEdicaoProdutosView extends javax.swing.JFrame {
         btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Produto - Inclusão/Edição");
         setBackground(new java.awt.Color(122, 196, 220));
 
@@ -178,41 +181,6 @@ public class InclusaoEdicaoProdutosView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InclusaoEdicaoProdutosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InclusaoEdicaoProdutosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InclusaoEdicaoProdutosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InclusaoEdicaoProdutosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new InclusaoEdicaoProdutosView().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSalvar;
@@ -230,4 +198,65 @@ public class InclusaoEdicaoProdutosView extends javax.swing.JFrame {
     private javax.swing.JTextField txtPrecoCusto;
     private javax.swing.JTextField txtPrecoVenda;
     // End of variables declaration//GEN-END:variables
+
+
+    public JButton getBtnCancelar() {
+        return btnCancelar;
+    }
+
+    public JButton getBtnSalvar() {
+        return btnSalvar;
+    }
+
+    public JComboBox<String> getCbCategoria() {
+        return cbCategoria;
+    }
+
+    public JDesktopPane getDpDadosProduto() {
+        return dpDadosProduto;
+    }
+
+    public JDesktopPane getDpPrincipal() {
+        return dpPrincipal;
+    }
+
+    public JLabel getLblCategoria() {
+        return lblCategoria;
+    }
+
+    public JLabel getLblMargem() {
+        return lblMargem;
+    }
+
+    public JLabel getLblNomeProduto() {
+        return lblNomeProduto;
+    }
+
+    public JLabel getLblPrecoCusto() {
+        return lblPrecoCusto;
+    }
+
+    public JLabel getLblPrecoVenda() {
+        return lblPrecoVenda;
+    }
+
+    public JSeparator getSeparador() {
+        return separador;
+    }
+
+    public JTextField getTxtMargem() {
+        return txtMargem;
+    }
+
+    public JTextField getTxtNomeProduto() {
+        return txtNomeProduto;
+    }
+
+    public JTextField getTxtPrecoCusto() {
+        return txtPrecoCusto;
+    }
+
+    public JTextField getTxtPrecoVenda() {
+        return txtPrecoVenda;
+    }
 }

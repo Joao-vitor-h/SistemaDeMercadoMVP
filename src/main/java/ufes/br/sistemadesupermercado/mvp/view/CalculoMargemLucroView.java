@@ -1,5 +1,7 @@
 package ufes.br.sistemadesupermercado.mvp.view;
 
+import javax.swing.*;
+
 /**
  *
  * @author ludico
@@ -35,7 +37,8 @@ public class CalculoMargemLucroView extends javax.swing.JFrame {
         tbProduto = new javax.swing.JTable();
         btnFechar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Calculo de Margem de Lucro");
 
         dpPrincipal.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -69,7 +72,7 @@ public class CalculoMargemLucroView extends javax.swing.JFrame {
                         .addComponent(cbTipoCalculo, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnCalcular)))
-                .addContainerGap(218, Short.MAX_VALUE))
+                .addContainerGap(450, Short.MAX_VALUE))
         );
         dpFiltroLayout.setVerticalGroup(
             dpFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,7 +117,7 @@ public class CalculoMargemLucroView extends javax.swing.JFrame {
             dpTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dpTabelaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrlProduto)
+                .addComponent(scrlProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 901, Short.MAX_VALUE)
                 .addContainerGap())
         );
         dpTabelaLayout.setVerticalGroup(
@@ -137,14 +140,15 @@ public class CalculoMargemLucroView extends javax.swing.JFrame {
         dpPrincipalLayout.setHorizontalGroup(
             dpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dpPrincipalLayout.createSequentialGroup()
-                .addContainerGap(10, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(dpFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dpPrincipalLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(dpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dpFiltro, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dpPrincipalLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(dpTabela))
-                .addContainerGap(10, Short.MAX_VALUE))
+                    .addComponent(dpTabela, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFechar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         dpPrincipalLayout.setVerticalGroup(
             dpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,7 +159,7 @@ public class CalculoMargemLucroView extends javax.swing.JFrame {
                 .addComponent(dpTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -175,31 +179,6 @@ public class CalculoMargemLucroView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new CalculoMargemLucroView().setVisible(true));
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalcular;
     private javax.swing.JButton btnFechar;
@@ -212,4 +191,45 @@ public class CalculoMargemLucroView extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrlProduto;
     private javax.swing.JTable tbProduto;
     // End of variables declaration//GEN-END:variables
+
+
+    public JButton getBtnCalcular() {
+        return btnCalcular;
+    }
+
+    public JButton getBtnFechar() {
+        return btnFechar;
+    }
+
+    public JComboBox<String> getCbTipoCalculo() {
+        return cbTipoCalculo;
+    }
+
+    public JDesktopPane getDpFiltro() {
+        return dpFiltro;
+    }
+
+    public JDesktopPane getDpPrincipal() {
+        return dpPrincipal;
+    }
+
+    public JDesktopPane getDpTabela() {
+        return dpTabela;
+    }
+
+    public JLabel getLblData() {
+        return lblData;
+    }
+
+    public JLabel getLblMensagem() {
+        return lblMensagem;
+    }
+
+    public JScrollPane getScrlProduto() {
+        return scrlProduto;
+    }
+
+    public JTable getTbProduto() {
+        return tbProduto;
+    }
 }

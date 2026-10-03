@@ -1,5 +1,7 @@
 package ufes.br.sistemadesupermercado.mvp.view;
 
+import javax.swing.*;
+
 /**
  *
  * @author João Vitor
@@ -22,7 +24,6 @@ public class TelaPrincipalView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        telaPrincipal = new javax.swing.JInternalFrame();
         menuPrincipal = new javax.swing.JMenuBar();
         menuDados = new javax.swing.JMenu();
         menuItemIncluirDados = new javax.swing.JMenuItem();
@@ -32,9 +33,6 @@ public class TelaPrincipalView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Supermercado");
-
-        telaPrincipal.setFrameIcon(null);
-        telaPrincipal.setVisible(true);
 
         menuDados.setText("Dados");
 
@@ -52,68 +50,21 @@ public class TelaPrincipalView extends javax.swing.JFrame {
 
         menuPrincipal.add(menuDados);
 
-        telaPrincipal.setJMenuBar(menuPrincipal);
-
-        javax.swing.GroupLayout telaPrincipalLayout = new javax.swing.GroupLayout(telaPrincipal.getContentPane());
-        telaPrincipal.getContentPane().setLayout(telaPrincipalLayout);
-        telaPrincipalLayout.setHorizontalGroup(
-            telaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 379, Short.MAX_VALUE)
-        );
-        telaPrincipalLayout.setVerticalGroup(
-            telaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 260, Short.MAX_VALUE)
-        );
+        setJMenuBar(menuPrincipal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(telaPrincipal)
+            .addGap(0, 391, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(telaPrincipal)
+            .addGap(0, 296, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipalView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipalView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipalView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipalView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new TelaPrincipalView().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu menuDados;
@@ -122,6 +73,30 @@ public class TelaPrincipalView extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemCategoria;
     private javax.swing.JMenuItem menuItemIncluirDados;
     private javax.swing.JMenuBar menuPrincipal;
-    private javax.swing.JInternalFrame telaPrincipal;
     // End of variables declaration//GEN-END:variables
+
+
+    public JMenu getMenuDados() {
+        return menuDados;
+    }
+
+    public JMenuItem getMenuItemBuscarProdutos() {
+        return menuItemBuscarProdutos;
+    }
+
+    public JMenuItem getMenuItemCalcularMargemDeLucro() {
+        return menuItemCalcularMargemDeLucro;
+    }
+
+    public JMenuItem getMenuItemCategoria() {
+        return menuItemCategoria;
+    }
+
+    public JMenuItem getMenuItemIncluirDados() {
+        return menuItemIncluirDados;
+    }
+
+    public JMenuBar getMenuPrincipal() {
+        return menuPrincipal;
+    }
 }

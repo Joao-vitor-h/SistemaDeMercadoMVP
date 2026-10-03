@@ -1,5 +1,7 @@
 package ufes.br.sistemadesupermercado.mvp.view;
 
+import javax.swing.*;
+
 /**
  *
  * @author João Vitor
@@ -29,13 +31,13 @@ public class BuscarProdutosView extends javax.swing.JFrame {
         cbBuscar = new javax.swing.JComboBox<>();
         btnBuscar = new javax.swing.JButton();
         scrlPainel = new javax.swing.JScrollPane();
-        tblProdutos = new javax.swing.JTable();
+        tbProdutos = new javax.swing.JTable();
         separador = new javax.swing.JSeparator();
         btnNovo = new javax.swing.JButton();
         btnFechar = new javax.swing.JButton();
         btnVizualizar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Buscar Produtos");
         setBackground(new java.awt.Color(105, 152, 181));
 
@@ -46,7 +48,7 @@ public class BuscarProdutosView extends javax.swing.JFrame {
         lblBuscar.setText("Buscar por:");
         lblBuscar.setToolTipText("");
 
-        cbBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nome do Produto", "Valor do Produto", "Categoria do Produto" }));
+        cbBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nome do Produto", "Categoria do Produto" }));
 
         btnBuscar.setText("Buscar");
 
@@ -84,7 +86,7 @@ public class BuscarProdutosView extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
+        tbProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -100,8 +102,11 @@ public class BuscarProdutosView extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        tblProdutos.setShowGrid(false);
-        scrlPainel.setViewportView(tblProdutos);
+        tbProdutos.setColumnSelectionAllowed(false);
+        tbProdutos.setGridColor(new java.awt.Color(0, 0, 0));
+        tbProdutos.setRowHeight(25);
+        tbProdutos.setShowGrid(true);
+        scrlPainel.setViewportView(tbProdutos);
 
         btnNovo.setText("Novo");
 
@@ -138,10 +143,10 @@ public class BuscarProdutosView extends javax.swing.JFrame {
         dpPainelPrincipalLayout.setVerticalGroup(
             dpPainelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dpPainelPrincipalLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(20, 20, 20)
                 .addComponent(camadaBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrlPainel, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
+                .addComponent(scrlPainel, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(separador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -172,41 +177,6 @@ public class BuscarProdutosView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BuscarProdutosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BuscarProdutosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BuscarProdutosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BuscarProdutosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new BuscarProdutosView().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnFechar;
@@ -218,7 +188,56 @@ public class BuscarProdutosView extends javax.swing.JFrame {
     private javax.swing.JLabel lblBuscar;
     private javax.swing.JScrollPane scrlPainel;
     private javax.swing.JSeparator separador;
-    private javax.swing.JTable tblProdutos;
+    private javax.swing.JTable tbProdutos;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
+
+
+    public JButton getBtnBuscar() {
+        return btnBuscar;
+    }
+
+    public JButton getBtnFechar() {
+        return btnFechar;
+    }
+
+    public JButton getBtnNovo() {
+        return btnNovo;
+    }
+
+    public JButton getBtnVizualizar() {
+        return btnVizualizar;
+    }
+
+    public JLayeredPane getCamadaBuscar() {
+        return camadaBuscar;
+    }
+
+    public JComboBox<String> getCbBuscar() {
+        return cbBuscar;
+    }
+
+    public JDesktopPane getDpPainelPrincipal() {
+        return dpPainelPrincipal;
+    }
+
+    public JLabel getLblBuscar() {
+        return lblBuscar;
+    }
+
+    public JScrollPane getScrlPainel() {
+        return scrlPainel;
+    }
+
+    public JSeparator getSeparador() {
+        return separador;
+    }
+
+    public JTable getTbProdutos() {
+        return tbProdutos;
+    }
+
+    public JTextField getTxtBuscar() {
+        return txtBuscar;
+    }
 }

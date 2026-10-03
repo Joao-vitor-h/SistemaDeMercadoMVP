@@ -1,5 +1,7 @@
 package ufes.br.sistemadesupermercado.mvp.view;
 
+import javax.swing.*;
+
 /**
  *
  * @author João Vitor
@@ -38,13 +40,13 @@ public class CategoriaProdutoView extends javax.swing.JFrame {
         scrlCategoria = new javax.swing.JScrollPane();
         tbCategoria = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Categoria de Produtos");
 
         dpCategoriaProduto.setBackground(new java.awt.Color(255, 255, 255));
 
         dpCategoria.setBackground(new java.awt.Color(234, 234, 234));
-        dpCategoria.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(null), "Modo: Visualização"), "Detalhes da Categoria"));
+        dpCategoria.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Modo: Visualização"), "Detalhes da Categoria"));
 
         lblCategoria.setText("Categoria:");
 
@@ -208,41 +210,6 @@ public class CategoriaProdutoView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CategoriaProdutoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CategoriaProdutoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CategoriaProdutoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CategoriaProdutoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CategoriaProdutoView().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEditar;
@@ -260,4 +227,65 @@ public class CategoriaProdutoView extends javax.swing.JFrame {
     private javax.swing.JTextField txtCategoria;
     private javax.swing.JTextField txtPercentual;
     // End of variables declaration//GEN-END:variables
+
+
+    public JButton getBtnCancelar() {
+        return btnCancelar;
+    }
+
+    public JButton getBtnEditar() {
+        return btnEditar;
+    }
+
+    public JButton getBtnExcluir() {
+        return btnExcluir;
+    }
+
+    public JButton getBtnFechar() {
+        return btnFechar;
+    }
+
+    public JButton getBtnNovo() {
+        return btnNovo;
+    }
+
+    public JButton getBtnSalvar() {
+        return btnSalvar;
+    }
+
+    public JDesktopPane getDpCategoria() {
+        return dpCategoria;
+    }
+
+    public JDesktopPane getDpCategoriaProduto() {
+        return dpCategoriaProduto;
+    }
+
+    public JDesktopPane getDpCategoriasCadastradas() {
+        return dpCategoriasCadastradas;
+    }
+
+    public JLabel getLblCategoria() {
+        return lblCategoria;
+    }
+
+    public JLabel getLblPercentual() {
+        return lblPercentual;
+    }
+
+    public JScrollPane getScrlCategoria() {
+        return scrlCategoria;
+    }
+
+    public JTable getTbCategoria() {
+        return tbCategoria;
+    }
+
+    public JTextField getTxtCategoria() {
+        return txtCategoria;
+    }
+
+    public JTextField getTxtPercentual() {
+        return txtPercentual;
+    }
 }
