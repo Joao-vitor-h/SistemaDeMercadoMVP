@@ -39,7 +39,7 @@ public class TelaPrincipalPresenter {
         view.getMenuItemBuscarProdutos().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                TelaBuscaProdutosPresenter buscaProduto = new TelaBuscaProdutosPresenter(produtoRepository);
+                TelaBuscaProdutosPresenter buscaProduto = new TelaBuscaProdutosPresenter(produtoRepository, categoriaRepository);
             }
         });
 
