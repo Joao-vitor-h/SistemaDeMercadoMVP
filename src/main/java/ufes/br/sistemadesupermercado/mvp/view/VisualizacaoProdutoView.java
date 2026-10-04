@@ -59,7 +59,7 @@ public class VisualizacaoProdutoView extends javax.swing.JFrame {
 
         lblPrecoVenda.setText("Preço de Venda:");
 
-        cbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Nome do Produto", "Categoria do Produto" }));
+        cbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Educação", "Papelaria", "Alimentação", "Lazer", "Entretenimento", "Higiene", "Limpeza" }));
 
         dpDadosProduto.setLayer(lblNomeProduto, javax.swing.JLayeredPane.DEFAULT_LAYER);
         dpDadosProduto.setLayer(lblPrecoCusto, javax.swing.JLayeredPane.DEFAULT_LAYER);

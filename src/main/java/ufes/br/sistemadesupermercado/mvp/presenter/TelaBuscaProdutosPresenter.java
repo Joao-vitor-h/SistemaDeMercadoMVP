@@ -3,8 +3,10 @@ package ufes.br.sistemadesupermercado.mvp.presenter;
 import ufes.br.sistemadesupermercado.mvp.model.ProdutoModel;
 import ufes.br.sistemadesupermercado.mvp.repository.ICategoriaRepository;
 import ufes.br.sistemadesupermercado.mvp.repository.IProdutoRepository;
+import ufes.br.sistemadesupermercado.mvp.repository.ProdutoRepository;
 import ufes.br.sistemadesupermercado.mvp.view.BuscarProdutosView;
 
+import javax.management.RuntimeMBeanException;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -12,6 +14,8 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.*;
 
 public class TelaBuscaProdutosPresenter {
@@ -86,17 +90,49 @@ public class TelaBuscaProdutosPresenter {
             }
         });
 
-        view.getBtnFechar().addActionListener(new ActionListener() {
+        List<Object> nomeProduto = new ArrayList<>();
+
+        tabelaProdutos.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                view.dispose();
+            public void mouseClicked(MouseEvent e) {
+                int linha = tabelaProdutos.rowAtPoint(e.getPoint());
+                if (nomeProduto.size() > 0) {
+                    nomeProduto.clear();
+                }
+                nomeProduto.add(tabelaProdutos.getValueAt(linha, 0));
             }
         });
 
         view.getBtnVizualizar().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                TelaVisualizacaoProdutoPresenter vizualizacaoProduto = new TelaVisualizacaoProdutoPresenter();
+                try {
+                    Optional<ProdutoModel> produtoOpt = produtoRepository.buscarProduto(nomeProduto.getFirst().toString());
+
+                    ProdutoModel produto;
+
+                    if (produtoOpt.isPresent()) {
+                        produto = produtoOpt.get();
+                    } else {
+                        throw new RuntimeException("O produto não foi encontrado.");
+                    }
+
+                    nomeProduto.clear();
+
+                    TelaVisualizacaoProdutoPresenter vizualizacaoProduto = new TelaVisualizacaoProdutoPresenter(produto, produtoRepository, categoriaRepository);
+
+
+                } catch (RuntimeException ex) {
+                    JOptionPane.showMessageDialog(view, ex.getMessage());
+                }
+
+            }
+        });
+
+        view.getBtnFechar().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                view.dispose();
             }
         });
 
