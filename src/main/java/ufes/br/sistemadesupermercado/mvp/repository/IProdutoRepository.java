@@ -15,9 +15,7 @@ public interface IProdutoRepository {
 
     void removerProduto(String nome);
 
-    void editarProduto(String nome, double precoCusto);
-
-    void editarProduto(String nome, CategoriaModel categoria);
+    public void editarProduto(String nome, String novoNome, double precoCusto, CategoriaModel categoria);
 
     List<ProdutoModel> getProdutos();
 }

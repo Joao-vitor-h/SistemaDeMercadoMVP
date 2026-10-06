@@ -5,11 +5,11 @@ import java.util.Objects;
 public class ProdutoModel {
 
     private int id;
-    private String nome;
+    private java.lang.String nome;
     private double precoCusto;
     private CategoriaModel categoria;
 
-    public ProdutoModel(int id, String nome, double precoCusto, CategoriaModel categoria) {
+    public ProdutoModel(int id, java.lang.String nome, double precoCusto, CategoriaModel categoria) {
         Objects.requireNonNull(nome, "O nome é nulo.");
 
         if (nome.isBlank() || nome.isEmpty()) {
@@ -17,7 +17,6 @@ public class ProdutoModel {
         }
 
         Objects.requireNonNull(categoria, "A categoria é nula.");
-
 
         this.id = id;
         this.nome = nome;
@@ -29,7 +28,7 @@ public class ProdutoModel {
         return id;
     }
 
-    public String getNome() {
+    public java.lang.String getNome() {
         return nome;
     }
 
@@ -41,7 +40,7 @@ public class ProdutoModel {
         return categoria;
     }
 
-    public void setNome(String nome) {
+    public void setNome(java.lang.String nome) {
         this.nome = nome;
     }
 
@@ -54,7 +53,7 @@ public class ProdutoModel {
     }
 
     @Override
-    public String toString() {
+    public java.lang.String toString() {
         return "ID: " + id + "\n" +
                "Nome do Produto: " + nome + "\n" +
                "Preço de Custo: " + precoCusto + "\n" +

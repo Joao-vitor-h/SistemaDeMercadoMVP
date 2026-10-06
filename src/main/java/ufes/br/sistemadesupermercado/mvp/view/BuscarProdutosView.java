@@ -102,7 +102,6 @@ public class BuscarProdutosView extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        tbProdutos.setColumnSelectionAllowed(false);
         tbProdutos.setGridColor(new java.awt.Color(0, 0, 0));
         tbProdutos.setRowHeight(25);
         tbProdutos.setShowGrid(true);

@@ -22,7 +22,7 @@ public class ProdutoRepository implements IProdutoRepository {
     public static int getContador() { return contador; }
 
     @Override
-    public boolean verificarExistenciaProduto(String nome) {
+    public boolean verificarExistenciaProduto(java.lang.String nome) {
 
         Optional<ProdutoModel> produtoOpt = buscarProduto(nome);
 
@@ -30,7 +30,7 @@ public class ProdutoRepository implements IProdutoRepository {
     }
 
     @Override
-    public Optional<ProdutoModel> buscarProduto(String nome) {
+    public Optional<ProdutoModel> buscarProduto(java.lang.String nome) {
         Objects.requireNonNull(nome, "O nome é nulo.");
 
         if (nome.isBlank() || nome.isEmpty()) {
@@ -56,6 +56,10 @@ public class ProdutoRepository implements IProdutoRepository {
             throw new IllegalArgumentException("O nome passado é inválido para o produto.");
         }
 
+        if (verificarExistenciaProduto(nome)) {
+            throw new IllegalArgumentException("O produto já existe!");
+        }
+
         if (precoCusto <= 0) {
             throw new IllegalArgumentException("O preço de custa é inválido.");
         }
@@ -64,7 +68,7 @@ public class ProdutoRepository implements IProdutoRepository {
     }
 
     @Override
-    public void removerProduto(String nome) {
+    public void removerProduto(java.lang.String nome) {
         Optional<ProdutoModel> produtoOpt = buscarProduto(nome);
 
         if (produtoOpt.isPresent()) {
@@ -72,26 +76,29 @@ public class ProdutoRepository implements IProdutoRepository {
         }
     }
 
-    @Override
-    public void editarProduto(String nome, double precoCusto) {
+    private void editarProduto(String nome, double precoCusto) {
         if(precoCusto <= 0) {
             throw new IllegalArgumentException("O preço está inválido.");
         }
+        Optional<ProdutoModel> produtoOpt = buscarProduto(nome);
+        produtoOpt.get().setPrecoCusto(precoCusto);
+    }
 
-        if (verificarExistenciaProduto(nome)) {
-            Optional<ProdutoModel> produtoOpt = buscarProduto(nome);
-            produtoOpt.get().setPrecoCusto(precoCusto);
-        }
+    private void editarProduto(String nome, CategoriaModel categoria) {
+        Optional<ProdutoModel> produtoOpt = buscarProduto(nome);
+        produtoOpt.get().setCategoria(categoria);
+    }
+
+    private void editarProduto(String nome, String novoNome) {
+        Optional<ProdutoModel> produtoOpt = buscarProduto(nome);
+        produtoOpt.get().setNome(novoNome);
     }
 
     @Override
-    public void editarProduto(String nome, CategoriaModel categoria) {
-        Objects.requireNonNull(categoria, "A categoria está nula.");
-
-        if (verificarExistenciaProduto(nome)) {
-            Optional<ProdutoModel> produtoOpt = buscarProduto(nome);
-            produtoOpt.get().setCategoria(categoria);
-        }
+    public void editarProduto(String nome, String novoNome, double precoCusto, CategoriaModel categoria) {
+        editarProduto(nome, novoNome);
+        editarProduto(nome, precoCusto);
+        editarProduto(nome, categoria);
     }
 
     @Override

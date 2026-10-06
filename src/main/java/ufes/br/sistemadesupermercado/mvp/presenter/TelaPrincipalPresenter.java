@@ -32,7 +32,7 @@ public class TelaPrincipalPresenter {
         view.getMenuItemIncluirDados().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                TelaInclusaoEdicaoPresenter inclusaoEdicaoProduto = new TelaInclusaoEdicaoPresenter();
+                TelaInclusaoEdicaoPresenter inclusaoEdicaoProduto = new TelaInclusaoEdicaoPresenter(null, produtoRepository, categoriaRepository);
             }
         });
 

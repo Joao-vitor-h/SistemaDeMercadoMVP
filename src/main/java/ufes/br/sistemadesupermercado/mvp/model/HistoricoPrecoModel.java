@@ -33,7 +33,7 @@ public class HistoricoPrecoModel {
     }
 
     @Override
-    public String toString() {
+    public java.lang.String toString() {
         return "Data do Cálculo: " + dataCalculo.getDayOfMonth() + "/" + dataCalculo.getMonthValue() + "/" + dataCalculo.getYear() + "\n" +
                "Percentual de Lucro: R$" + percentualLucro + "\n" +
                "Preço de Venda: R$" + precoVenda + "\n" +

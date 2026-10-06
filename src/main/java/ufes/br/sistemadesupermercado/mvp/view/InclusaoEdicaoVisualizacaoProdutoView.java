@@ -6,12 +6,12 @@ import javax.swing.*;
  *
  * @author João Vitor
  */
-public class VisualizacaoProdutoView extends javax.swing.JFrame {
+public class InclusaoEdicaoVisualizacaoProdutoView extends javax.swing.JFrame {
 
     /**
      * Creates new form InclusaoEdicaoProdutosView
      */
-    public VisualizacaoProdutoView() {
+    public InclusaoEdicaoVisualizacaoProdutoView() {
         initComponents();
     }
 
@@ -38,7 +38,7 @@ public class VisualizacaoProdutoView extends javax.swing.JFrame {
         txtPrecoVenda = new javax.swing.JTextField();
         btnEditar = new javax.swing.JButton();
         btnFechar = new javax.swing.JButton();
-        btnVisualizar = new javax.swing.JButton();
+        btnVisualizarHistorico = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Produto - Visualização");
@@ -77,7 +77,7 @@ public class VisualizacaoProdutoView extends javax.swing.JFrame {
         dpDadosProdutoLayout.setHorizontalGroup(
             dpDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dpDadosProdutoLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addContainerGap(73, Short.MAX_VALUE)
                 .addGroup(dpDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblNomeProduto)
                     .addComponent(lblPrecoCusto)
@@ -86,15 +86,15 @@ public class VisualizacaoProdutoView extends javax.swing.JFrame {
                     .addComponent(lblPrecoVenda))
                 .addGap(48, 48, 48)
                 .addGroup(dpDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtNomeProduto)
                     .addGroup(dpDadosProdutoLayout.createSequentialGroup()
                         .addGroup(dpDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtPrecoVenda, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
+                            .addComponent(cbCategoria, javax.swing.GroupLayout.Alignment.LEADING, 0, 249, Short.MAX_VALUE)
+                            .addComponent(txtPrecoVenda, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtPrecoCusto, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtMargem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(cbCategoria, 0, 478, Short.MAX_VALUE)
-                    .addComponent(txtNomeProduto))
-                .addContainerGap(30, Short.MAX_VALUE))
+                            .addComponent(txtMargem, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(0, 266, Short.MAX_VALUE)))
+                .addGap(29, 29, 29))
         );
         dpDadosProdutoLayout.setVerticalGroup(
             dpDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -128,47 +128,43 @@ public class VisualizacaoProdutoView extends javax.swing.JFrame {
         btnFechar.setBackground(new java.awt.Color(204, 204, 204));
         btnFechar.setText("Fechar");
 
-        btnVisualizar.setBackground(new java.awt.Color(204, 204, 204));
-        btnVisualizar.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        btnVisualizar.setText("Visualizar histórico de preços");
+        btnVisualizarHistorico.setBackground(new java.awt.Color(204, 204, 204));
+        btnVisualizarHistorico.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnVisualizarHistorico.setText("Visualizar histórico de preços");
 
         dpPrincipal.setLayer(dpDadosProduto, javax.swing.JLayeredPane.DEFAULT_LAYER);
         dpPrincipal.setLayer(btnEditar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         dpPrincipal.setLayer(btnFechar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        dpPrincipal.setLayer(btnVisualizar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        dpPrincipal.setLayer(btnVisualizarHistorico, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout dpPrincipalLayout = new javax.swing.GroupLayout(dpPrincipal);
         dpPrincipal.setLayout(dpPrincipalLayout);
         dpPrincipalLayout.setHorizontalGroup(
             dpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dpPrincipalLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
             .addGroup(dpPrincipalLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(dpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(dpPrincipalLayout.createSequentialGroup()
-                        .addComponent(dpDadosProduto)
-                        .addContainerGap(10, Short.MAX_VALUE))
-                    .addGroup(dpPrincipalLayout.createSequentialGroup()
-                        .addComponent(btnVisualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(dpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(dpDadosProduto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dpPrincipalLayout.createSequentialGroup()
+                            .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnVisualizarHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         dpPrincipalLayout.setVerticalGroup(
             dpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dpPrincipalLayout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
+                .addGap(60, 60, 60)
                 .addComponent(dpDadosProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(btnVisualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnVisualizarHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE)
                 .addGroup(dpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21))
+                .addGap(29, 29, 29))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -194,7 +190,7 @@ public class VisualizacaoProdutoView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnFechar;
-    private javax.swing.JButton btnVisualizar;
+    private javax.swing.JButton btnVisualizarHistorico;
     private javax.swing.JComboBox<String> cbCategoria;
     private javax.swing.JDesktopPane dpDadosProduto;
     private javax.swing.JDesktopPane dpPrincipal;
@@ -218,8 +214,8 @@ public class VisualizacaoProdutoView extends javax.swing.JFrame {
         return btnFechar;
     }
 
-    public JButton getBtnVisualizar() {
-        return btnVisualizar;
+    public JButton getBtnVisualizarHistorico() {
+        return btnVisualizarHistorico;
     }
 
     public JComboBox<String> getCbCategoria() {

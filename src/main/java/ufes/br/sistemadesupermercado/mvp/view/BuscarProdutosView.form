@@ -190,7 +190,6 @@
                     <Column editable="true" title="Pre&#xe7;o de Venda" type="java.lang.Double"/>
                   </Table>
                 </Property>
-                <Property name="columnSelectionAllowed" type="boolean" value="false"/>
                 <Property name="gridColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>

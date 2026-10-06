@@ -3,10 +3,8 @@ package ufes.br.sistemadesupermercado.mvp.presenter;
 import ufes.br.sistemadesupermercado.mvp.model.ProdutoModel;
 import ufes.br.sistemadesupermercado.mvp.repository.ICategoriaRepository;
 import ufes.br.sistemadesupermercado.mvp.repository.IProdutoRepository;
-import ufes.br.sistemadesupermercado.mvp.repository.ProdutoRepository;
 import ufes.br.sistemadesupermercado.mvp.view.BuscarProdutosView;
 
-import javax.management.RuntimeMBeanException;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -50,13 +48,7 @@ public class TelaBuscaProdutosPresenter {
             tabelaProdutos.getColumnModel().getColumn(i).setCellRenderer(centralizador);
         }
 
-        for (ProdutoModel produto : produtoRepository.getProdutos()) {
-            String nome = produto.getNome();
-            double precoCusto = produto.getPrecoCusto();
-            String categoria = produto.getCategoria().getNome();
-
-            modeloTabelaProdutos.addRow(new Object[]{nome, precoCusto, categoria});
-        }
+        inserirProdutos(modeloTabelaProdutos);
 
         // Criando índices para minha tabela.
         TableRowSorter<TableModel> ordenador = new TableRowSorter<>(modeloTabelaProdutos);
@@ -67,8 +59,8 @@ public class TelaBuscaProdutosPresenter {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                String nome = view.getTxtBuscar().getText().trim();
-                String metodo = view.getCbBuscar().getSelectedItem().toString();
+                java.lang.String nome = view.getTxtBuscar().getText().trim();
+                java.lang.String metodo = view.getCbBuscar().getSelectedItem().toString();
 
                 if (nome.isEmpty() || nome.isBlank()) {
                     ordenador.setRowFilter(null);
@@ -92,6 +84,13 @@ public class TelaBuscaProdutosPresenter {
 
         List<Object> nomeProduto = new ArrayList<>();
 
+        view.getBtnNovo().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TelaInclusaoEdicaoPresenter inclusaoEdicao = new TelaInclusaoEdicaoPresenter(null, produtoRepository, categoriaRepository);
+            }
+        });
+
         tabelaProdutos.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -109,12 +108,10 @@ public class TelaBuscaProdutosPresenter {
                 try {
                     Optional<ProdutoModel> produtoOpt = produtoRepository.buscarProduto(nomeProduto.getFirst().toString());
 
-                    ProdutoModel produto;
+                    ProdutoModel produto = null;
 
                     if (produtoOpt.isPresent()) {
                         produto = produtoOpt.get();
-                    } else {
-                        throw new RuntimeException("O produto não foi encontrado.");
                     }
 
                     nomeProduto.clear();
@@ -123,7 +120,7 @@ public class TelaBuscaProdutosPresenter {
 
 
                 } catch (RuntimeException ex) {
-                    JOptionPane.showMessageDialog(view, ex.getMessage());
+                    JOptionPane.showMessageDialog(view, "Selecione um produto!");
                 }
 
             }
@@ -140,7 +137,7 @@ public class TelaBuscaProdutosPresenter {
     }
 
     // Futuramente será preciso aplicar o OCP aqui.
-    private void buscarProduto(String nome, String metodo) {
+    private void buscarProduto(java.lang.String nome, java.lang.String metodo) {
 
         TableModel modeloTabela = view.getTbProdutos().getModel();
         TableRowSorter<TableModel> ordenador = (TableRowSorter<TableModel>) view.getTbProdutos().getRowSorter();
@@ -179,6 +176,16 @@ public class TelaBuscaProdutosPresenter {
                     return !ocultos.contains(entry.getIdentifier());
                 }
             });
+        }
+    }
+
+    private void inserirProdutos(DefaultTableModel modelo) {
+        for (ProdutoModel produto : produtoRepository.getProdutos()) {
+            java.lang.String nome = produto.getNome();
+            double precoCusto = produto.getPrecoCusto();
+            java.lang.String categoria = produto.getCategoria().getNome();
+
+            modelo.addRow(new Object[]{nome, precoCusto, categoria});
         }
     }
 }

@@ -2,7 +2,6 @@ package ufes.br.sistemadesupermercado.mvp.seeder;
 
 import ufes.br.sistemadesupermercado.mvp.model.CategoriaModel;
 import ufes.br.sistemadesupermercado.mvp.model.ProdutoModel;
-import ufes.br.sistemadesupermercado.mvp.repository.CategoriaRepository;
 
 import java.util.ArrayList;
 import java.util.List;
