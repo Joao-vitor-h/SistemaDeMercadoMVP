@@ -96,9 +96,9 @@ public class ProdutoRepository implements IProdutoRepository {
 
     @Override
     public void editarProduto(String nome, String novoNome, double precoCusto, CategoriaModel categoria) {
-        editarProduto(nome, novoNome);
         editarProduto(nome, precoCusto);
         editarProduto(nome, categoria);
+        editarProduto(nome, novoNome);
     }
 
     @Override

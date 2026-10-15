@@ -38,7 +38,7 @@ public class TelaVisualizacaoProdutoPresenter {
         view.getBtnEditar().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                TelaInclusaoEdicaoPresenter telaEditar = new TelaInclusaoEdicaoPresenter(produto.getNome(), produtoRepository, categoriaRepository);
+                TelaEdicaoProdutoPresenter telaEditar = new TelaEdicaoProdutoPresenter(produto.getNome(), produtoRepository, categoriaRepository);
             }
         });
 

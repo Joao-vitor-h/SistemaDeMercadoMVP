@@ -1,0 +1,27 @@
+package ufes.br.sistemadesupermercado.mvp.presenter.state;
+
+import ufes.br.sistemadesupermercado.mvp.view.InclusaoEdicaoVisualizacaoProdutoView;
+
+import java.util.Objects;
+
+public abstract class InclusaoEdicaoVisualizacaoViewState {
+
+    private InclusaoEdicaoVisualizacaoProdutoView view;
+
+    public InclusaoEdicaoVisualizacaoViewState(InclusaoEdicaoVisualizacaoProdutoView view) {
+        Objects.requireNonNull(view, "A instância da tela está nula.");
+        this.view = view;
+    }
+
+    public void incluir() {
+        throw new RuntimeException("Não é possível incluir produtos neste estado.");
+    }
+
+    public void visualizar() {
+        throw new RuntimeException("Não é possível visualizar produtos neste estado.");
+    }
+
+    public void Editar() {
+        throw new RuntimeException("Não é possível editar produtos neste estado.");
+    }
+}

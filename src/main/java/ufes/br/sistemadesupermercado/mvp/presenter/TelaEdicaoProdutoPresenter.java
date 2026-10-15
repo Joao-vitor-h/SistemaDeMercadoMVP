@@ -7,62 +7,25 @@ import ufes.br.sistemadesupermercado.mvp.repository.IProdutoRepository;
 import ufes.br.sistemadesupermercado.mvp.view.InclusaoEdicaoVisualizacaoProdutoView;
 
 import javax.swing.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Optional;
 
-public class TelaInclusaoEdicaoPresenter {
+public class TelaEdicaoProdutoPresenter {
 
     private InclusaoEdicaoVisualizacaoProdutoView view;
     private IProdutoRepository produtoRepository;
     private ICategoriaRepository categoriaRepository;
 
-    public TelaInclusaoEdicaoPresenter(String nome, IProdutoRepository produtoRepository, ICategoriaRepository categoriaRepository) {
+    public TelaEdicaoProdutoPresenter(String nome, IProdutoRepository produtoRepository, ICategoriaRepository categoriaRepository) {
         this.view = new InclusaoEdicaoVisualizacaoProdutoView();
         this.produtoRepository = produtoRepository;
         this.categoriaRepository = categoriaRepository;
 
-        if (nome != null) {
-            configuraView(nome);
-        } else {
-            configuraView();
-        }
+        configuraView(nome);
     }
 
-    private void configuraView() {
-        view.setLocationRelativeTo(null);
-
-        view.setTitle("Produto - Inclusão/Edição");
-        view.getBtnVisualizarHistorico().setVisible(false);
-        view.getTxtMargem().setEnabled(false);
-        view.getTxtPrecoVenda().setEnabled(false);
-        view.getBtnEditar().setText("Salvar");
-        view.getBtnFechar().setText("Cancelar");
-
-        view.getBtnEditar().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    java.lang.String nome = view.getTxtNomeProduto().getText();
-                    double preco = Double.parseDouble(view.getTxtPrecoCusto().getText());
-                    Object categoria = view.getCbCategoria().getSelectedItem();
-
-                    criarNovoProduto(nome, preco, categoria.toString());
-                } catch (RuntimeException ex) {
-                    JOptionPane.showMessageDialog(view, ex.getMessage());
-                }
-            }
-        });
-
-        view.getBtnFechar().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                view.dispose();
-            }
-        });
-
-        view.setVisible(true);
-    }
-
+    // Aplicar padrão Observer para atualizar a lista de produtos sempre que ocorrer uma edição.
     private void configuraView(String nome) {
         view.setLocationRelativeTo(null);
 
@@ -114,18 +77,6 @@ public class TelaInclusaoEdicaoPresenter {
         });
 
         view.setVisible(true);
-    }
-
-    private void criarNovoProduto(java.lang.String nome, double precoCusto, java.lang.String categoria) {
-        Optional<CategoriaModel> categoriaOpt = categoriaRepository.buscarCategoria(categoria);
-
-        if (categoriaOpt.isPresent()) {
-            produtoRepository.adicionarProduto(nome, precoCusto, categoriaOpt.get());
-            TelaVisualizacaoProdutoPresenter visualizar = new TelaVisualizacaoProdutoPresenter(produtoRepository.buscarProduto(nome).get(), produtoRepository, categoriaRepository);
-        }
-
-        view.getTxtNomeProduto().setText("");
-        view.getTxtPrecoCusto().setText("");
     }
 
     private void fechar() {

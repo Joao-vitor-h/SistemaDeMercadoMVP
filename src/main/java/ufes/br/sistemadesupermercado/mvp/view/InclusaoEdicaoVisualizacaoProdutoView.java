@@ -1,12 +1,14 @@
 package ufes.br.sistemadesupermercado.mvp.view;
 
+import ufes.br.sistemadesupermercado.mvp.presenter.state.InclusaoEdicaoVisualizacaoViewState;
+
 import javax.swing.*;
 
 /**
  *
  * @author João Vitor
  */
-public class InclusaoEdicaoVisualizacaoProdutoView extends javax.swing.JFrame {
+public abstract class InclusaoEdicaoVisualizacaoProdutoView extends javax.swing.JFrame {
 
     /**
      * Creates new form InclusaoEdicaoProdutosView
@@ -204,6 +206,12 @@ public class InclusaoEdicaoVisualizacaoProdutoView extends javax.swing.JFrame {
     private javax.swing.JTextField txtPrecoCusto;
     private javax.swing.JTextField txtPrecoVenda;
     // End of variables declaration//GEN-END:variables
+
+    private InclusaoEdicaoVisualizacaoViewState estado;
+
+    public void setEstado(InclusaoEdicaoVisualizacaoViewState estado) {
+        this.estado = estado;
+    }
 
     // getters
     public JButton getBtnEditar() {

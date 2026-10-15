@@ -1,6 +1,7 @@
 package ufes.br.sistemadesupermercado.mvp.presenter;
 
 import ufes.br.sistemadesupermercado.mvp.model.ProdutoModel;
+import ufes.br.sistemadesupermercado.mvp.presenter.buscar.BuscaProdutoService;
 import ufes.br.sistemadesupermercado.mvp.repository.ICategoriaRepository;
 import ufes.br.sistemadesupermercado.mvp.repository.IProdutoRepository;
 import ufes.br.sistemadesupermercado.mvp.view.BuscarProdutosView;
@@ -59,24 +60,17 @@ public class TelaBuscaProdutosPresenter {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                java.lang.String nome = view.getTxtBuscar().getText().trim();
-                java.lang.String metodo = view.getCbBuscar().getSelectedItem().toString();
+                String nome = view.getTxtBuscar().getText().trim();
+                int metodo = view.getCbBuscar().getSelectedIndex();
 
                 if (nome.isEmpty() || nome.isBlank()) {
                     ordenador.setRowFilter(null);
                 }
-                else if (metodo.equals("Nome do Produto")) {
-                    if (produtoRepository.verificarExistenciaProduto(nome)) {
-                        buscarProduto(nome, metodo);
-                    } else {
-                        JOptionPane.showMessageDialog(view, "FALHA: O produto " + nome.toUpperCase() + " não existe!");
-                    }
-                }
                 else {
-                    if (categoriaRepository.verificarExistenciaCategoria(nome)) {
-                        buscarProduto(nome, metodo);
-                    } else {
-                        JOptionPane.showMessageDialog(view, "FALHA: A categoria " + nome.toUpperCase() + " não existe!");
+                    try {
+                        buscarProduto(nome, metodo, modeloTabelaProdutos, ordenador);
+                    } catch (RuntimeException ex) {
+                        JOptionPane.showMessageDialog(view, ex.getMessage());
                     }
                 }
             }
@@ -87,7 +81,7 @@ public class TelaBuscaProdutosPresenter {
         view.getBtnNovo().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                TelaInclusaoEdicaoPresenter inclusaoEdicao = new TelaInclusaoEdicaoPresenter(null, produtoRepository, categoriaRepository);
+                TelaInclusaoProdutoPresenter inclusaoEdicao = new TelaInclusaoProdutoPresenter(null, produtoRepository, categoriaRepository);
             }
         });
 
@@ -137,46 +131,11 @@ public class TelaBuscaProdutosPresenter {
     }
 
     // Futuramente será preciso aplicar o OCP aqui.
-    private void buscarProduto(java.lang.String nome, java.lang.String metodo) {
+    private void buscarProduto(String nome, int metodo, TableModel modeloTabela, TableRowSorter<TableModel> ordenador) {
 
-        TableModel modeloTabela = view.getTbProdutos().getModel();
-        TableRowSorter<TableModel> ordenador = (TableRowSorter<TableModel>) view.getTbProdutos().getRowSorter();
-        // Precisa ser final para não ser alterado pela classe interna.
-        final List<Integer> ocultos = new ArrayList<>();
-        int linhas = modeloTabela.getRowCount();
+        BuscaProdutoService buscador = new BuscaProdutoService();
 
-        if (metodo.equals("Nome do Produto")) {
-            for (int i = 0; i < linhas; i++) {
-                Object nomeProduto = modeloTabela.getValueAt(i, 0);
-
-                if (!(nome.equalsIgnoreCase(nomeProduto.toString()))) {
-                    ocultos.add(i);
-                }
-            }
-
-            ordenador.setRowFilter(new RowFilter<TableModel, Integer>() {
-                @Override
-                public boolean include(Entry<? extends TableModel, ? extends Integer> entry) {
-                    return !ocultos.contains(entry.getIdentifier());
-                }
-            });
-        }
-        else {
-            for (int i = 0; i < linhas; i++) {
-                Object nomeCategoria = modeloTabela.getValueAt(i, 2);
-
-                if (!(nome.equalsIgnoreCase(nomeCategoria.toString()))) {
-                    ocultos.add(i);
-                }
-            }
-
-            ordenador.setRowFilter(new RowFilter<TableModel, Integer>() {
-                @Override
-                public boolean include(Entry<? extends TableModel, ? extends Integer> entry) {
-                    return !ocultos.contains(entry.getIdentifier());
-                }
-            });
-        }
+        buscador.buscar(metodo, nome, modeloTabela, ordenador);
     }
 
     private void inserirProdutos(DefaultTableModel modelo) {
