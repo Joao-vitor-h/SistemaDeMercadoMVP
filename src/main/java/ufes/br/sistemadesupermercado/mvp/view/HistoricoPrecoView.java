@@ -2,10 +2,6 @@ package ufes.br.sistemadesupermercado.mvp.view;
 
 import javax.swing.*;
 
-/**
- *
- * @author João Vitor
- */
 public class HistoricoPrecoView extends javax.swing.JFrame {
 
     /**

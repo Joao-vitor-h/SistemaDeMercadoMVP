@@ -4,10 +4,6 @@ import ufes.br.sistemadesupermercado.mvp.presenter.state.InclusaoEdicaoVisualiza
 
 import javax.swing.*;
 
-/**
- *
- * @author João Vitor
- */
 public abstract class InclusaoEdicaoVisualizacaoProdutoView extends javax.swing.JFrame {
 
     /**
