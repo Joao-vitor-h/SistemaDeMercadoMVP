@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public abstract class InclusaoEdicaoVisualizacaoViewState {
 
-    private InclusaoEdicaoVisualizacaoProdutoView view;
+    protected InclusaoEdicaoVisualizacaoProdutoView view;
 
     public InclusaoEdicaoVisualizacaoViewState(InclusaoEdicaoVisualizacaoProdutoView view) {
         Objects.requireNonNull(view, "A instância da tela está nula.");
@@ -17,11 +17,11 @@ public abstract class InclusaoEdicaoVisualizacaoViewState {
         throw new RuntimeException("Não é possível incluir produtos neste estado.");
     }
 
-    public void visualizar() {
+    public void visualizar(String nome) {
         throw new RuntimeException("Não é possível visualizar produtos neste estado.");
     }
 
-    public void Editar() {
+    public void editar(String nome) {
         throw new RuntimeException("Não é possível editar produtos neste estado.");
     }
 }

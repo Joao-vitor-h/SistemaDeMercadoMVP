@@ -4,7 +4,7 @@ import ufes.br.sistemadesupermercado.mvp.presenter.state.InclusaoEdicaoVisualiza
 
 import javax.swing.*;
 
-public abstract class InclusaoEdicaoVisualizacaoProdutoView extends javax.swing.JFrame {
+public class InclusaoEdicaoVisualizacaoProdutoView extends javax.swing.JFrame {
 
     /**
      * Creates new form InclusaoEdicaoProdutosView
@@ -207,6 +207,22 @@ public abstract class InclusaoEdicaoVisualizacaoProdutoView extends javax.swing.
 
     public void setEstado(InclusaoEdicaoVisualizacaoViewState estado) {
         this.estado = estado;
+    }
+
+    public InclusaoEdicaoVisualizacaoViewState getEstado() {
+        return estado;
+    }
+
+    public void incluir() {
+        estado.incluir();
+    }
+
+    public void visualizar(String nome) {
+        estado.visualizar(nome);
+    }
+
+    public void editar(String nome) {
+        estado.editar(nome);
     }
 
     // getters

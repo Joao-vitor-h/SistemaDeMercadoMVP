@@ -2,6 +2,7 @@ package ufes.br.sistemadesupermercado.mvp.presenter;
 
 import ufes.br.sistemadesupermercado.mvp.repository.ICategoriaRepository;
 import ufes.br.sistemadesupermercado.mvp.repository.IProdutoRepository;
+import ufes.br.sistemadesupermercado.mvp.view.InclusaoEdicaoVisualizacaoProdutoView;
 import ufes.br.sistemadesupermercado.mvp.view.TelaPrincipalView;
 
 import javax.swing.*;
@@ -32,7 +33,8 @@ public class TelaPrincipalPresenter {
         view.getMenuItemIncluirDados().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                TelaInclusaoProdutoPresenter inclusaoEdicaoProduto = new TelaInclusaoProdutoPresenter(null, produtoRepository, categoriaRepository);
+                InclusaoEdicaoVisualizacaoProdutoView inclusao = new InclusaoEdicaoVisualizacaoProdutoView();
+                inclusao.setEstado(new TelaInclusaoProdutoStatePresenter(inclusao, produtoRepository, categoriaRepository));
             }
         });
 

@@ -81,7 +81,7 @@ public class TelaBuscaProdutosPresenter {
         view.getBtnNovo().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                TelaInclusaoProdutoPresenter inclusaoEdicao = new TelaInclusaoProdutoPresenter(null, produtoRepository, categoriaRepository);
+                TelaInclusaoProdutoStatePresenter inclusaoEdicao = new TelaInclusaoProdutoStatePresenter(null, produtoRepository, categoriaRepository);
             }
         });
 
@@ -110,7 +110,7 @@ public class TelaBuscaProdutosPresenter {
 
                     nomeProduto.clear();
 
-                    TelaVisualizacaoProdutoPresenter vizualizacaoProduto = new TelaVisualizacaoProdutoPresenter(produto, produtoRepository, categoriaRepository);
+                    //TelaVisualizacaoProdutoStatePresenter vizualizacaoProduto = new TelaVisualizacaoProdutoStatePresenter(produto, produtoRepository, categoriaRepository);
 
 
                 } catch (RuntimeException ex) {
