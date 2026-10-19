@@ -2,9 +2,13 @@ package ufes.br.sistemadesupermercado.mvp.presenter;
 
 import ufes.br.sistemadesupermercado.mvp.model.ProdutoModel;
 import ufes.br.sistemadesupermercado.mvp.presenter.buscar.BuscaProdutoService;
+import ufes.br.sistemadesupermercado.mvp.presenter.state.InclusaoEdicaoVisualizacaoViewState;
+import ufes.br.sistemadesupermercado.mvp.presenter.state.TelaInclusaoProdutoStatePresenter;
+import ufes.br.sistemadesupermercado.mvp.presenter.state.TelaVisualizacaoBuscaProdutoStatePresenter;
 import ufes.br.sistemadesupermercado.mvp.repository.ICategoriaRepository;
 import ufes.br.sistemadesupermercado.mvp.repository.IProdutoRepository;
 import ufes.br.sistemadesupermercado.mvp.view.BuscarProdutosView;
+import ufes.br.sistemadesupermercado.mvp.view.InclusaoEdicaoVisualizacaoProdutoView;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -81,7 +85,8 @@ public class TelaBuscaProdutosPresenter {
         view.getBtnNovo().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                TelaInclusaoProdutoStatePresenter inclusaoEdicao = new TelaInclusaoProdutoStatePresenter(null, produtoRepository, categoriaRepository);
+                InclusaoEdicaoVisualizacaoProdutoView telaInclusao = new InclusaoEdicaoVisualizacaoProdutoView();
+                telaInclusao.setEstado(new TelaInclusaoProdutoStatePresenter(telaInclusao, produtoRepository, categoriaRepository));
             }
         });
 
@@ -100,18 +105,12 @@ public class TelaBuscaProdutosPresenter {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Optional<ProdutoModel> produtoOpt = produtoRepository.buscarProduto(nomeProduto.getFirst().toString());
-
-                    ProdutoModel produto = null;
-
-                    if (produtoOpt.isPresent()) {
-                        produto = produtoOpt.get();
-                    }
+                    String nome = nomeProduto.getFirst().toString();
 
                     nomeProduto.clear();
 
-                    //TelaVisualizacaoProdutoStatePresenter vizualizacaoProduto = new TelaVisualizacaoProdutoStatePresenter(produto, produtoRepository, categoriaRepository);
-
+                    InclusaoEdicaoVisualizacaoProdutoView telaVisualiza = new InclusaoEdicaoVisualizacaoProdutoView();
+                    telaVisualiza.setEstado(new TelaVisualizacaoBuscaProdutoStatePresenter(telaVisualiza, nome, produtoRepository, categoriaRepository));
 
                 } catch (RuntimeException ex) {
                     JOptionPane.showMessageDialog(view, "Selecione um produto!");
@@ -140,9 +139,9 @@ public class TelaBuscaProdutosPresenter {
 
     private void inserirProdutos(DefaultTableModel modelo) {
         for (ProdutoModel produto : produtoRepository.getProdutos()) {
-            java.lang.String nome = produto.getNome();
+            String nome = produto.getNome();
             double precoCusto = produto.getPrecoCusto();
-            java.lang.String categoria = produto.getCategoria().getNome();
+            String categoria = produto.getCategoria().getNome();
 
             modelo.addRow(new Object[]{nome, precoCusto, categoria});
         }

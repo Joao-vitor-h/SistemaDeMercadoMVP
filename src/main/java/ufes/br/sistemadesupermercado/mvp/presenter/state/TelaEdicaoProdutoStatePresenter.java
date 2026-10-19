@@ -1,8 +1,7 @@
-package ufes.br.sistemadesupermercado.mvp.presenter;
+package ufes.br.sistemadesupermercado.mvp.presenter.state;
 
 import ufes.br.sistemadesupermercado.mvp.model.CategoriaModel;
 import ufes.br.sistemadesupermercado.mvp.model.ProdutoModel;
-import ufes.br.sistemadesupermercado.mvp.presenter.state.InclusaoEdicaoVisualizacaoViewState;
 import ufes.br.sistemadesupermercado.mvp.repository.ICategoriaRepository;
 import ufes.br.sistemadesupermercado.mvp.repository.IProdutoRepository;
 import ufes.br.sistemadesupermercado.mvp.view.InclusaoEdicaoVisualizacaoProdutoView;

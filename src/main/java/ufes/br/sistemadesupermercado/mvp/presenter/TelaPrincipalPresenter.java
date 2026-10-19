@@ -1,5 +1,6 @@
 package ufes.br.sistemadesupermercado.mvp.presenter;
 
+import ufes.br.sistemadesupermercado.mvp.presenter.state.TelaInclusaoProdutoStatePresenter;
 import ufes.br.sistemadesupermercado.mvp.repository.ICategoriaRepository;
 import ufes.br.sistemadesupermercado.mvp.repository.IProdutoRepository;
 import ufes.br.sistemadesupermercado.mvp.view.InclusaoEdicaoVisualizacaoProdutoView;

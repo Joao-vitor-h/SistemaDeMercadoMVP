@@ -1,7 +1,6 @@
-package ufes.br.sistemadesupermercado.mvp.presenter;
+package ufes.br.sistemadesupermercado.mvp.presenter.state;
 
 import ufes.br.sistemadesupermercado.mvp.model.ProdutoModel;
-import ufes.br.sistemadesupermercado.mvp.presenter.state.InclusaoEdicaoVisualizacaoViewState;
 import ufes.br.sistemadesupermercado.mvp.repository.ICategoriaRepository;
 import ufes.br.sistemadesupermercado.mvp.repository.IProdutoRepository;
 import ufes.br.sistemadesupermercado.mvp.view.InclusaoEdicaoVisualizacaoProdutoView;
@@ -47,7 +46,6 @@ public class TelaVisualizacaoProdutoStatePresenter extends InclusaoEdicaoVisuali
             @Override
             public void actionPerformed(ActionEvent e) {
                 view.editar(produto.getNome());
-                view.getBtnEditar().removeActionListener(this);
             }
         };
 
