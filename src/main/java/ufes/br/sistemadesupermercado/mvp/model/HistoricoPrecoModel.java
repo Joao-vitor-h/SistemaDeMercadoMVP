@@ -1,13 +1,15 @@
 package ufes.br.sistemadesupermercado.mvp.model;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.Objects;
 
 public class HistoricoPrecoModel {
 
     private LocalDate dataCalculo;
-    private double percentualLucro;
-    private double precoVenda;
+    private BigDecimal percentualLucro;
+    private BigDecimal precoVenda;
     private ProdutoModel produto;
 
     public HistoricoPrecoModel(LocalDate dataCalculo, double percentualLucro, double precoVenda, ProdutoModel produto) {
@@ -15,8 +17,8 @@ public class HistoricoPrecoModel {
         Objects.requireNonNull(produto, "O produto está nulo.");
 
         this.dataCalculo = dataCalculo;
-        this.percentualLucro = percentualLucro;
-        this.precoVenda = precoVenda;
+        this.percentualLucro = new BigDecimal(percentualLucro).setScale(2, RoundingMode.HALF_UP);
+        this.precoVenda = new BigDecimal(precoVenda).setScale(2, RoundingMode.HALF_UP);
         this.produto = produto;
     }
 
@@ -24,16 +26,20 @@ public class HistoricoPrecoModel {
         return dataCalculo;
     }
 
-    public double getPercentualLucro() {
+    public BigDecimal getPercentualLucro() {
         return percentualLucro;
     }
 
-    public double getPrecoVenda() {
+    public BigDecimal getPrecoVenda() {
         return precoVenda;
     }
 
+    public ProdutoModel getProduto() {
+        return produto;
+    }
+
     @Override
-    public java.lang.String toString() {
+    public String toString() {
         return "Data do Cálculo: " + dataCalculo.getDayOfMonth() + "/" + dataCalculo.getMonthValue() + "/" + dataCalculo.getYear() + "\n" +
                "Percentual de Lucro: R$" + percentualLucro + "\n" +
                "Preço de Venda: R$" + precoVenda + "\n" +

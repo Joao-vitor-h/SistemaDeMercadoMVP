@@ -8,16 +8,18 @@ public class CategoriaModel {
 
     private int id;
     private String nome;
-    private double percentualLucro;
+    private BigDecimal percentualLucro;
 
     public CategoriaModel(int id, String nome, double percentualLucro) {
         Objects.requireNonNull(nome, "O nome é nulo.");
+
         if (nome.isBlank() || nome.isEmpty()) {
             throw new IllegalArgumentException("O nome passado é inválido para a categoria.");
         }
+
         this.id = id;
         this.nome = nome;
-        this.percentualLucro = percentualLucro;
+        setPercentualLucro(percentualLucro);
     }
 
     public int getId() {
@@ -28,7 +30,7 @@ public class CategoriaModel {
         return nome;
     }
 
-    public double getPercentualLucro() {
+    public BigDecimal getPercentualLucro() {
         return percentualLucro;
     }
 
@@ -37,16 +39,13 @@ public class CategoriaModel {
     }
 
     public void setPercentualLucro(double percentualLucro) {
-        this.percentualLucro = percentualLucro;
+        this.percentualLucro = new BigDecimal(percentualLucro).setScale(2, RoundingMode.HALF_UP);;
     }
 
     @Override
     public String toString() {
-        BigDecimal valor = new BigDecimal(percentualLucro);
-        valor.setScale(2, RoundingMode.HALF_UP);
-
         return "ID: " + id + "\n" +
                "Nome: " + nome + "\n" +
-               "Percentual de Lucro: " + valor + "%\n";
+               "Percentual de Lucro: " + percentualLucro + "%\n";
     }
 }

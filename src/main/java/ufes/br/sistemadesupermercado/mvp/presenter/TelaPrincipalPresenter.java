@@ -1,7 +1,9 @@
 package ufes.br.sistemadesupermercado.mvp.presenter;
 
-import ufes.br.sistemadesupermercado.mvp.presenter.state.TelaInclusaoProdutoStatePresenter;
+import ufes.br.sistemadesupermercado.mvp.presenter.stateInclusaoEdicaoVisualizacao.TelaInclusaoProdutoStatePresenter;
+import ufes.br.sistemadesupermercado.mvp.repository.HistoricoPrecoRepository;
 import ufes.br.sistemadesupermercado.mvp.repository.ICategoriaRepository;
+import ufes.br.sistemadesupermercado.mvp.repository.IHistoricoPrecoRepository;
 import ufes.br.sistemadesupermercado.mvp.repository.IProdutoRepository;
 import ufes.br.sistemadesupermercado.mvp.view.InclusaoEdicaoVisualizacaoProdutoView;
 import ufes.br.sistemadesupermercado.mvp.view.TelaPrincipalView;
@@ -16,12 +18,16 @@ public class TelaPrincipalPresenter {
     private TelaPrincipalView view;
     private IProdutoRepository produtoRepository;
     private ICategoriaRepository categoriaRepository;
+    private IHistoricoPrecoRepository historicoPrecoRepository;
 
-    public TelaPrincipalPresenter(IProdutoRepository produtoRepository, ICategoriaRepository categoriaRepository) {
+    public TelaPrincipalPresenter(IProdutoRepository produtoRepository, ICategoriaRepository categoriaRepository, IHistoricoPrecoRepository historicoPrecoRepository) {
         Objects.requireNonNull(produtoRepository, "O repositório de produtos está nulo.");
         Objects.requireNonNull(categoriaRepository, "O repositório de categorias está nulo.");
+        Objects.requireNonNull(historicoPrecoRepository, "O repositório de históricos está nulo.");
+
         this.produtoRepository = produtoRepository;
         this.categoriaRepository = categoriaRepository;
+        this.historicoPrecoRepository = historicoPrecoRepository;
         this.view = new TelaPrincipalView();
         configuraView();
     }
@@ -56,7 +62,7 @@ public class TelaPrincipalPresenter {
         view.getMenuItemCalcularMargemDeLucro().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                TelaCalculoMargemLucroPresenter calculoMargemLucro = new TelaCalculoMargemLucroPresenter();
+                TelaCalculoMargemLucroPresenter calculoMargemLucro = new TelaCalculoMargemLucroPresenter(produtoRepository, historicoPrecoRepository);
             }
         });
 

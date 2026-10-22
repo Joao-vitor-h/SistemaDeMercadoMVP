@@ -1,0 +1,25 @@
+package ufes.br.sistemadesupermercado.mvp.service;
+
+import ufes.br.sistemadesupermercado.mvp.model.HistoricoPrecoModel;
+
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+
+public class IntervaloEntreCalculosService {
+
+    private LocalDate dataDoUltimoCalculo;
+
+    public boolean verificarIntervaloData(LocalDate data) {
+
+        if (dataDoUltimoCalculo == null) {
+            dataDoUltimoCalculo = data;
+            return true;
+        }
+
+        long dias = dataDoUltimoCalculo.until(data, ChronoUnit.DAYS);
+        dataDoUltimoCalculo = data;
+
+        return dias >= 10;
+    }
+}

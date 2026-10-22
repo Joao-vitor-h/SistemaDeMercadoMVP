@@ -4,7 +4,6 @@ import ufes.br.sistemadesupermercado.mvp.model.HistoricoPrecoModel;
 import ufes.br.sistemadesupermercado.mvp.model.ProdutoModel;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -12,7 +11,6 @@ import java.util.Objects;
 public class HistoricoPrecoRepository implements IHistoricoPrecoRepository {
 
     private List<HistoricoPrecoModel> historico;
-
 
     public HistoricoPrecoRepository() {
         historico = new ArrayList<>();
@@ -32,28 +30,13 @@ public class HistoricoPrecoRepository implements IHistoricoPrecoRepository {
             throw new IllegalArgumentException("O preço de venda não está válido.");
         }
 
-        try {
-            if (verificarIntervaloData(data)) {
-                historico.add(
-                        new HistoricoPrecoModel(data, percentual, precoVenda, produto)
-                );
-            }
-        } catch (RuntimeException e) {
-            historico.add(
-                    new HistoricoPrecoModel(data, percentual, precoVenda, produto)
-            );
-        }
+        historico.add(
+                new HistoricoPrecoModel(data, percentual, precoVenda, produto)
+        );
     }
 
     @Override
-    public boolean verificarIntervaloData(LocalDate data) throws RuntimeException {
-
-        HistoricoPrecoModel ultimoRegistro = historico.getLast();
-
-        LocalDate dataUltimoRegistro = ultimoRegistro.getDataCalculo();
-
-        long dias = dataUltimoRegistro.until(data, ChronoUnit.DAYS);
-
-        return dias >= 10;
+    public List<HistoricoPrecoModel> getHistorico() {
+        return historico;
     }
 }

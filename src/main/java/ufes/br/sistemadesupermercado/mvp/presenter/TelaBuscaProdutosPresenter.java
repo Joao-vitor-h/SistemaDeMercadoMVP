@@ -2,9 +2,8 @@ package ufes.br.sistemadesupermercado.mvp.presenter;
 
 import ufes.br.sistemadesupermercado.mvp.model.ProdutoModel;
 import ufes.br.sistemadesupermercado.mvp.presenter.buscar.BuscaProdutoService;
-import ufes.br.sistemadesupermercado.mvp.presenter.state.InclusaoEdicaoVisualizacaoViewState;
-import ufes.br.sistemadesupermercado.mvp.presenter.state.TelaInclusaoProdutoStatePresenter;
-import ufes.br.sistemadesupermercado.mvp.presenter.state.TelaVisualizacaoBuscaProdutoStatePresenter;
+import ufes.br.sistemadesupermercado.mvp.presenter.stateInclusaoEdicaoVisualizacao.TelaInclusaoProdutoStatePresenter;
+import ufes.br.sistemadesupermercado.mvp.presenter.stateInclusaoEdicaoVisualizacao.TelaVisualizacaoBuscaProdutoStatePresenter;
 import ufes.br.sistemadesupermercado.mvp.repository.ICategoriaRepository;
 import ufes.br.sistemadesupermercado.mvp.repository.IProdutoRepository;
 import ufes.br.sistemadesupermercado.mvp.view.BuscarProdutosView;
@@ -19,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.math.BigDecimal;
 import java.util.*;
 
 public class TelaBuscaProdutosPresenter {
@@ -140,10 +140,11 @@ public class TelaBuscaProdutosPresenter {
     private void inserirProdutos(DefaultTableModel modelo) {
         for (ProdutoModel produto : produtoRepository.getProdutos()) {
             String nome = produto.getNome();
-            double precoCusto = produto.getPrecoCusto();
+            BigDecimal precoCusto = produto.getPrecoCusto();
             String categoria = produto.getCategoria().getNome();
+            BigDecimal percentual = produto.getCategoria().getPercentualLucro();
 
-            modelo.addRow(new Object[]{nome, precoCusto, categoria});
+            modelo.addRow(new Object[]{nome, precoCusto, categoria, percentual});
         }
     }
 }

@@ -3,6 +3,8 @@ package ufes.br.sistemadesupermercado.mvp.repository;
 import ufes.br.sistemadesupermercado.mvp.model.CategoriaModel;
 import ufes.br.sistemadesupermercado.mvp.seeder.Seeder;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 
 public class CategoriaRepository implements ICategoriaRepository {

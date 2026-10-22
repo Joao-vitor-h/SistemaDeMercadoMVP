@@ -1,4 +1,4 @@
-package ufes.br.sistemadesupermercado.mvp.presenter.state;
+package ufes.br.sistemadesupermercado.mvp.presenter.stateInclusaoEdicaoVisualizacao;
 
 import ufes.br.sistemadesupermercado.mvp.view.InclusaoEdicaoVisualizacaoProdutoView;
 

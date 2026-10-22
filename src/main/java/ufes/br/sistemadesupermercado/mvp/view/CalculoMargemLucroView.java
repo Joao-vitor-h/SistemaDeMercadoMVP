@@ -26,8 +26,8 @@ public class CalculoMargemLucroView extends javax.swing.JFrame {
         dpFiltro = new javax.swing.JDesktopPane();
         lblData = new javax.swing.JLabel();
         lblMensagem = new javax.swing.JLabel();
-        cbTipoCalculo = new javax.swing.JComboBox<>();
         btnCalcular = new javax.swing.JButton();
+        txtData = new javax.swing.JTextField();
         dpTabela = new javax.swing.JDesktopPane();
         scrlProduto = new javax.swing.JScrollPane();
         tbProduto = new javax.swing.JTable();
@@ -45,14 +45,12 @@ public class CalculoMargemLucroView extends javax.swing.JFrame {
 
         lblMensagem.setText("O cálculo só pode ser realizado novamente após 10 dias.");
 
-        cbTipoCalculo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Nome do Produto" }));
-
         btnCalcular.setText("Calcular");
 
         dpFiltro.setLayer(lblData, javax.swing.JLayeredPane.DEFAULT_LAYER);
         dpFiltro.setLayer(lblMensagem, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        dpFiltro.setLayer(cbTipoCalculo, javax.swing.JLayeredPane.DEFAULT_LAYER);
         dpFiltro.setLayer(btnCalcular, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        dpFiltro.setLayer(txtData, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout dpFiltroLayout = new javax.swing.GroupLayout(dpFiltro);
         dpFiltro.setLayout(dpFiltroLayout);
@@ -65,19 +63,19 @@ public class CalculoMargemLucroView extends javax.swing.JFrame {
                     .addGroup(dpFiltroLayout.createSequentialGroup()
                         .addComponent(lblData)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbTipoCalculo, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnCalcular)))
-                .addContainerGap(450, Short.MAX_VALUE))
+                .addContainerGap(457, Short.MAX_VALUE))
         );
         dpFiltroLayout.setVerticalGroup(
             dpFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dpFiltroLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(dpFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbTipoCalculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCalcular)
-                    .addComponent(lblData))
+                    .addComponent(lblData)
+                    .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(lblMensagem)
                 .addContainerGap(19, Short.MAX_VALUE))
@@ -88,16 +86,7 @@ public class CalculoMargemLucroView extends javax.swing.JFrame {
         tbProduto.setAutoCreateRowSorter(true);
         tbProduto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Nome do Produto", "Preço Unitário", "Categoria", "Percentual de Lucro", "Preco de Venda Calculado"
@@ -137,13 +126,10 @@ public class CalculoMargemLucroView extends javax.swing.JFrame {
             dpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dpPrincipalLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(dpFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dpPrincipalLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(dpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dpTabela, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFechar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(dpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(dpFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dpTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         dpPrincipalLayout.setVerticalGroup(
@@ -178,7 +164,6 @@ public class CalculoMargemLucroView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalcular;
     private javax.swing.JButton btnFechar;
-    private javax.swing.JComboBox<String> cbTipoCalculo;
     private javax.swing.JDesktopPane dpFiltro;
     private javax.swing.JDesktopPane dpPrincipal;
     private javax.swing.JDesktopPane dpTabela;
@@ -186,6 +171,7 @@ public class CalculoMargemLucroView extends javax.swing.JFrame {
     private javax.swing.JLabel lblMensagem;
     private javax.swing.JScrollPane scrlProduto;
     private javax.swing.JTable tbProduto;
+    private javax.swing.JTextField txtData;
     // End of variables declaration//GEN-END:variables
 
 
@@ -197,8 +183,8 @@ public class CalculoMargemLucroView extends javax.swing.JFrame {
         return btnFechar;
     }
 
-    public JComboBox<String> getCbTipoCalculo() {
-        return cbTipoCalculo;
+    public JTextField getTxtData() {
+        return txtData;
     }
 
     public JDesktopPane getDpFiltro() {

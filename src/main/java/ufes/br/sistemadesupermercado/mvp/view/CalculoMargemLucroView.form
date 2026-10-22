@@ -50,12 +50,8 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="dpFiltro" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="dpFiltro" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Component id="dpTabela" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Component id="btnFechar" alignment="1" min="-2" pref="88" max="-2" attributes="0"/>
                   </Group>
@@ -104,12 +100,12 @@
                           <Group type="102" attributes="0">
                               <Component id="lblData" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="cbTipoCalculo" min="-2" pref="248" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                              <Component id="txtData" min="-2" pref="228" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="btnCalcular" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="450" max="32767" attributes="0"/>
+                      <EmptySpace pref="457" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -118,9 +114,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="cbTipoCalculo" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnCalcular" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblData" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtData" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="lblMensagem" min="-2" max="-2" attributes="0"/>
@@ -140,23 +136,12 @@
                 <Property name="text" type="java.lang.String" value="O c&#xe1;lculo s&#xf3; pode ser realizado novamente ap&#xf3;s 10 dias."/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="cbTipoCalculo">
-              <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="2">
-                    <StringItem index="0" value=" "/>
-                    <StringItem index="1" value="Nome do Produto"/>
-                  </StringArray>
-                </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-              </AuxValues>
-            </Component>
             <Component class="javax.swing.JButton" name="btnCalcular">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Calcular"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txtData">
             </Component>
           </SubComponents>
         </Container>
@@ -199,7 +184,7 @@
                   <Properties>
                     <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="5" rowCount="10">
+                      <Table columnCount="5" rowCount="0">
                         <Column editable="true" title="Nome do Produto" type="java.lang.Object"/>
                         <Column editable="true" title="Pre&#xe7;o Unit&#xe1;rio" type="java.lang.Object"/>
                         <Column editable="true" title="Categoria" type="java.lang.Object"/>

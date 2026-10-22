@@ -1,4 +1,4 @@
-package ufes.br.sistemadesupermercado.mvp.presenter.state;
+package ufes.br.sistemadesupermercado.mvp.presenter.stateInclusaoEdicaoVisualizacao;
 
 import ufes.br.sistemadesupermercado.mvp.model.CategoriaModel;
 import ufes.br.sistemadesupermercado.mvp.model.ProdutoModel;
@@ -13,13 +13,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class TelaEdicaoProdutoStatePresenter extends InclusaoEdicaoVisualizacaoViewState {
+public class TelaEdicaoBuscaProdutoStatePresenter extends InclusaoEdicaoVisualizacaoViewState {
 
     private IProdutoRepository produtoRepository;
     private ICategoriaRepository categoriaRepository;
     private List<ActionListener> monitores;
 
-    public TelaEdicaoProdutoStatePresenter(InclusaoEdicaoVisualizacaoProdutoView view, String nome, IProdutoRepository produtoRepository, ICategoriaRepository categoriaRepository) {
+
+    public TelaEdicaoBuscaProdutoStatePresenter(InclusaoEdicaoVisualizacaoProdutoView view, String nome, IProdutoRepository produtoRepository, ICategoriaRepository categoriaRepository) {
         super(view);
         this.produtoRepository = produtoRepository;
         this.categoriaRepository = categoriaRepository;
@@ -28,7 +29,6 @@ public class TelaEdicaoProdutoStatePresenter extends InclusaoEdicaoVisualizacaoV
         configuraView(nome);
     }
 
-    // Aplicar padrão Observer para atualizar a lista de produtos sempre que ocorrer uma edição.
     private void configuraView(String nome) {
         view.setLocationRelativeTo(null);
 
@@ -100,6 +100,6 @@ public class TelaEdicaoProdutoStatePresenter extends InclusaoEdicaoVisualizacaoV
         view.getBtnEditar().removeActionListener(monitores.get(0));
         view.getBtnFechar().removeActionListener(monitores.get(1));
 
-        view.setEstado(new TelaVisualizacaoProdutoStatePresenter(view, nome, produtoRepository, categoriaRepository));
+        view.setEstado(new TelaVisualizacaoBuscaProdutoStatePresenter(view, nome, produtoRepository, categoriaRepository));
     }
 }

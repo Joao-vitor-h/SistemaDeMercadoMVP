@@ -1,6 +1,6 @@
 package ufes.br.sistemadesupermercado.mvp.view;
 
-import ufes.br.sistemadesupermercado.mvp.presenter.state.InclusaoEdicaoVisualizacaoViewState;
+import ufes.br.sistemadesupermercado.mvp.presenter.stateInclusaoEdicaoVisualizacao.InclusaoEdicaoVisualizacaoViewState;
 
 import javax.swing.*;
 

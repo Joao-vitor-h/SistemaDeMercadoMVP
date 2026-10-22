@@ -22,7 +22,7 @@ public class ProdutoRepository implements IProdutoRepository {
     public static int getContador() { return contador; }
 
     @Override
-    public boolean verificarExistenciaProduto(java.lang.String nome) {
+    public boolean verificarExistenciaProduto(String nome) {
 
         Optional<ProdutoModel> produtoOpt = buscarProduto(nome);
 
@@ -30,7 +30,7 @@ public class ProdutoRepository implements IProdutoRepository {
     }
 
     @Override
-    public Optional<ProdutoModel> buscarProduto(java.lang.String nome) {
+    public Optional<ProdutoModel> buscarProduto(String nome) {
         Objects.requireNonNull(nome, "O nome é nulo.");
 
         if (nome.isBlank() || nome.isEmpty()) {
@@ -68,7 +68,7 @@ public class ProdutoRepository implements IProdutoRepository {
     }
 
     @Override
-    public void removerProduto(java.lang.String nome) {
+    public void removerProduto(String nome) {
         Optional<ProdutoModel> produtoOpt = buscarProduto(nome);
 
         if (produtoOpt.isPresent()) {

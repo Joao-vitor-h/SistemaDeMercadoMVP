@@ -1,35 +1,33 @@
-package ufes.br.sistemadesupermercado.mvp.presenter.state;
+package ufes.br.sistemadesupermercado.mvp.presenter.stateInclusaoEdicaoVisualizacao;
 
 import ufes.br.sistemadesupermercado.mvp.model.CategoriaModel;
-import ufes.br.sistemadesupermercado.mvp.model.ProdutoModel;
 import ufes.br.sistemadesupermercado.mvp.repository.ICategoriaRepository;
 import ufes.br.sistemadesupermercado.mvp.repository.IProdutoRepository;
 import ufes.br.sistemadesupermercado.mvp.view.InclusaoEdicaoVisualizacaoProdutoView;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class TelaEdicaoBuscaProdutoStatePresenter extends InclusaoEdicaoVisualizacaoViewState {
+public class TelaInclusaoProdutoStatePresenter extends InclusaoEdicaoVisualizacaoViewState {
 
     private IProdutoRepository produtoRepository;
     private ICategoriaRepository categoriaRepository;
     private List<ActionListener> monitores;
 
-
-    public TelaEdicaoBuscaProdutoStatePresenter(InclusaoEdicaoVisualizacaoProdutoView view, String nome, IProdutoRepository produtoRepository, ICategoriaRepository categoriaRepository) {
+    public TelaInclusaoProdutoStatePresenter(InclusaoEdicaoVisualizacaoProdutoView view, IProdutoRepository produtoRepository, ICategoriaRepository categoriaRepository) {
         super(view);
         this.produtoRepository = produtoRepository;
         this.categoriaRepository = categoriaRepository;
         this.monitores = new ArrayList<>();
 
-        configuraView(nome);
+        configuraView();
     }
 
-    private void configuraView(String nome) {
+    // Aplicar padrão Observer sempre que ocorrer uma inserção na tela de busca dos produtos.
+    private void configuraView() {
         view.setLocationRelativeTo(null);
 
         view.setTitle("Produto - Inclusão/Edição");
@@ -37,51 +35,32 @@ public class TelaEdicaoBuscaProdutoStatePresenter extends InclusaoEdicaoVisualiz
         view.getTxtNomeProduto().setEnabled(true);
         view.getTxtPrecoCusto().setEnabled(true);
         view.getCbCategoria().setEnabled(true);
-        view.getTxtMargem().setEditable(false);
-        view.getTxtPrecoVenda().setEditable(false);
+        view.getTxtMargem().setEnabled(false);
+        view.getTxtPrecoVenda().setEnabled(false);
         view.getBtnEditar().setText("Salvar");
         view.getBtnFechar().setText("Cancelar");
+        view.getTxtNomeProduto().setText("");
+        view.getTxtPrecoCusto().setText("");
 
-        Optional<ProdutoModel> produtoOpt = produtoRepository.buscarProduto(nome);
-
-        ProdutoModel produto;
-
-        ActionListener salva = null;
-        ActionListener fecha = null;
-
-        try {
-            produto = produtoOpt.get();
-
-            view.getTxtNomeProduto().setText(produto.getNome());
-            view.getTxtPrecoCusto().setText(String.valueOf(produto.getPrecoCusto()));
-            view.getCbCategoria().setSelectedItem(produto.getCategoria().getNome());
-
-            salva = new ActionListener() {
+        ActionListener salva = new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
-                        String novoNome = view.getTxtNomeProduto().getText();
+                        String nome = view.getTxtNomeProduto().getText();
                         double preco = Double.parseDouble(view.getTxtPrecoCusto().getText());
                         Object categoria = view.getCbCategoria().getSelectedItem();
 
-                        Optional<CategoriaModel> categoriaOpt = categoriaRepository.buscarCategoria(categoria.toString());
-
-                        produtoRepository.editarProduto(produto.getNome(), novoNome, preco, categoriaOpt.get());
-
-                        view.visualizar(novoNome);
+                        criarNovoProduto(nome, preco, categoria.toString());
                     } catch (RuntimeException ex) {
                         JOptionPane.showMessageDialog(view, ex.getMessage());
                     }
                 }
-            };
-        } catch (RuntimeException ex) {
-            JOptionPane.showMessageDialog(view, "Erro ao encontrar o produto.");
-        }
+        };
 
-        fecha = new ActionListener() {
+        ActionListener fecha = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                view.visualizar(nome);
+                cancelar();
             }
         };
 
@@ -94,12 +73,29 @@ public class TelaEdicaoBuscaProdutoStatePresenter extends InclusaoEdicaoVisualiz
         view.setVisible(true);
     }
 
+    private void criarNovoProduto(java.lang.String nome, double precoCusto, String categoria) {
+        Optional<CategoriaModel> categoriaOpt = categoriaRepository.buscarCategoria(categoria);
+
+        if (categoriaOpt.isPresent()) {
+            produtoRepository.adicionarProduto(nome, precoCusto, categoriaOpt.get());
+        }
+
+        view.getTxtNomeProduto().setText("");
+        view.getTxtPrecoCusto().setText("");
+
+        view.visualizar(nome);
+    }
+
+    private void cancelar() {
+        view.dispose();
+    }
+
     @Override
     public void visualizar(String nome) {
 
         view.getBtnEditar().removeActionListener(monitores.get(0));
         view.getBtnFechar().removeActionListener(monitores.get(1));
 
-        view.setEstado(new TelaVisualizacaoBuscaProdutoStatePresenter(view, nome, produtoRepository, categoriaRepository));
+        view.setEstado(new TelaVisualizacaoProdutoStatePresenter(view, nome, produtoRepository, categoriaRepository));
     }
 }

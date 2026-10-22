@@ -1,15 +1,17 @@
 package ufes.br.sistemadesupermercado.mvp.model;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Objects;
 
 public class ProdutoModel {
 
     private int id;
-    private java.lang.String nome;
-    private double precoCusto;
+    private String nome;
+    private BigDecimal precoCusto;
     private CategoriaModel categoria;
 
-    public ProdutoModel(int id, java.lang.String nome, double precoCusto, CategoriaModel categoria) {
+    public ProdutoModel(int id, String nome, double precoCusto, CategoriaModel categoria) {
         Objects.requireNonNull(nome, "O nome é nulo.");
 
         if (nome.isBlank() || nome.isEmpty()) {
@@ -20,7 +22,7 @@ public class ProdutoModel {
 
         this.id = id;
         this.nome = nome;
-        this.precoCusto = precoCusto;
+        setPrecoCusto(precoCusto);
         this.categoria = categoria;
     }
 
@@ -28,11 +30,11 @@ public class ProdutoModel {
         return id;
     }
 
-    public java.lang.String getNome() {
+    public String getNome() {
         return nome;
     }
 
-    public double getPrecoCusto() {
+    public BigDecimal getPrecoCusto() {
         return precoCusto;
     }
 
@@ -45,7 +47,7 @@ public class ProdutoModel {
     }
 
     public void setPrecoCusto(double precoCusto) {
-        this.precoCusto = precoCusto;
+        this.precoCusto = new BigDecimal(precoCusto).setScale(2, RoundingMode.HALF_UP);
     }
 
     public void setCategoria(CategoriaModel categoria) {
@@ -53,10 +55,10 @@ public class ProdutoModel {
     }
 
     @Override
-    public java.lang.String toString() {
+    public String toString() {
         return "ID: " + id + "\n" +
                "Nome do Produto: " + nome + "\n" +
-               "Preço de Custo: " + precoCusto + "\n" +
+               "Preço de Custo: R$" + precoCusto + "\n" +
                "Categoria: " + categoria.getNome() + "\n";
     }
 }
