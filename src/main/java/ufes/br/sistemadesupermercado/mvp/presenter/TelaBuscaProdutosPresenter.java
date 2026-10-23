@@ -94,7 +94,7 @@ public class TelaBuscaProdutosPresenter {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int linha = tabelaProdutos.rowAtPoint(e.getPoint());
-                if (nomeProduto.size() > 0) {
+                if (!nomeProduto.isEmpty()) {
                     nomeProduto.clear();
                 }
                 nomeProduto.add(tabelaProdutos.getValueAt(linha, 0));

@@ -10,13 +10,14 @@ import ufes.br.sistemadesupermercado.mvp.service.IntervaloEntreCalculosService;
 import ufes.br.sistemadesupermercado.mvp.view.CalculoMargemLucroView;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.BitSet;
 import java.util.Objects;
 
 public class TelaCalculoMargemLucroPresenter {
@@ -39,62 +40,80 @@ public class TelaCalculoMargemLucroPresenter {
     private void configuraView() {
         view.setLocationRelativeTo(null);
 
+        inserirResgistros();
+
+        DefaultTableCellRenderer centralizador = new DefaultTableCellRenderer();
+        centralizador.setHorizontalAlignment(SwingConstants.CENTER);
+
+        JTable tabela = view.getTbProduto();
+
+        for (int i = 0; i < tabela.getColumnCount(); i++) {
+            tabela.getColumnModel().getColumn(i).setCellRenderer(centralizador);
+        }
+
         view.getBtnCalcular().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String data = view.getTxtData().getText();
+                try {
+                    String data = view.getTxtData().getText().trim();
+                    // Resolver erro da data.
+                    if (!data.isEmpty()) {
+                        int dia = Integer.parseInt(data.substring(0, 2));
+                        int mes = Integer.parseInt(data.substring(3, 5));
+                        int ano = Integer.parseInt(data.substring(6, 10));
 
-                int dia = Integer.parseInt(data.substring(0, 2));
-                int mes = Integer.parseInt(data.substring(3, 5));
-                int ano = Integer.parseInt(data.substring(6, 10));
+                        atualizarPrecoVenda(LocalDate.of(ano, mes, dia));
+                    } else {
+                        throw new RuntimeException("O campo data está vazio.");
+                    }
 
-                atualizarPrecoVenda(LocalDate.of(ano, mes, dia));
-
-                inserirResgistros();
+                } catch (RuntimeException ex) {
+                    JOptionPane.showMessageDialog(view, ex.getMessage());
+                }
             }
         });
 
         view.setVisible(true);
     }
 
+    private void criarRegistros(LocalDate data) {
+        CalculoPrecoVendaService calculoPrecoVenda = new CalculoPrecoVendaService();
+        HistoricoDePrecoService historicoDePrecoService = new HistoricoDePrecoService(historicoPrecoRepository);
+
+        for (ProdutoModel produto : produtoRepository.getProdutos()) {
+            historicoDePrecoService.adicionarRegistro(
+                    data,
+                    produto.getCategoria().getPercentualLucro().doubleValue(),
+                    calculoPrecoVenda.calcularPrecoVenda(produto),
+                    produto
+            );
+        }
+    }
+
     private void inserirResgistros() {
         DefaultTableModel modelo = (DefaultTableModel) view.getTbProduto().getModel();
 
-        for (HistoricoPrecoModel registro : historicoPrecoRepository.getHistorico()) {
+        for (ProdutoModel produto : produtoRepository.getProdutos()) {
             modelo.addRow(new Object[]{
-                            registro.getProduto().getNome(),
-                            registro.getProduto().getPrecoCusto(),
-                            registro.getProduto().getCategoria().getNome(),
-                            registro.getPercentualLucro(),
-                            registro.getPrecoVenda()
-                    }
+                    produto.getNome(),
+                    produto.getPrecoCusto(),
+                    produto.getCategoria().getNome(),
+                    produto.getCategoria().getPercentualLucro()
+                }
             );
         }
     }
 
     private void atualizarPrecoVenda(LocalDate data) {
-        CalculoPrecoVendaService calculoPrecoVenda = new CalculoPrecoVendaService();
-        HistoricoDePrecoService historicoDePrecoService = new HistoricoDePrecoService(historicoPrecoRepository);
+        DefaultTableModel modelo = (DefaultTableModel) view.getTbProduto().getModel();
         IntervaloEntreCalculosService intervalo = new IntervaloEntreCalculosService();
+        int i = 0;
 
-        try {
-            if (intervalo.verificarIntervaloData(data)) {
-                for (ProdutoModel produto : produtoRepository.getProdutos()) {
-                    historicoDePrecoService.adicionarRegistros(
-                            data,
-                            produto.getCategoria().getPercentualLucro().doubleValue(),
-                            calculoPrecoVenda.calcularPrecoVenda(produto),
-                            produto
-                    );
-                }
-
-
-
-            } else {
-                throw new RuntimeException("O intervalo de dias ainda não foi atingido!");
+        if (intervalo.verificarIntervaloData(data)) {
+            criarRegistros(data);
+            for (HistoricoPrecoModel registro : historicoPrecoRepository.getHistorico()) {
+                modelo.setValueAt(registro.getPrecoVenda(), i++, 4);
             }
-        } catch (RuntimeException ex) {
-            JOptionPane.showMessageDialog(view, ex.getMessage());
         }
     }
 }

@@ -18,8 +18,12 @@ public class IntervaloEntreCalculosService {
         }
 
         long dias = dataDoUltimoCalculo.until(data, ChronoUnit.DAYS);
-        dataDoUltimoCalculo = data;
 
-        return dias >= 10;
+        if (dias >= 10) {
+            dataDoUltimoCalculo = data;
+            return true;
+        }
+
+        return false;
     }
 }
