@@ -6,7 +6,6 @@ import ufes.br.sistemadesupermercado.mvp.repository.IHistoricoPrecoRepository;
 import ufes.br.sistemadesupermercado.mvp.repository.IProdutoRepository;
 import ufes.br.sistemadesupermercado.mvp.service.CalculoPrecoVendaService;
 import ufes.br.sistemadesupermercado.mvp.service.HistoricoDePrecoService;
-import ufes.br.sistemadesupermercado.mvp.service.IntervaloEntreCalculosService;
 import ufes.br.sistemadesupermercado.mvp.view.CalculoMargemLucroView;
 
 import javax.swing.*;
@@ -14,10 +13,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.util.BitSet;
 import java.util.Objects;
 
 public class TelaCalculoMargemLucroPresenter {
@@ -40,7 +36,11 @@ public class TelaCalculoMargemLucroPresenter {
     private void configuraView() {
         view.setLocationRelativeTo(null);
 
-        inserirResgistros();
+        if (!historicoPrecoRepository.getHistoricos().isEmpty()) {
+            inserirResgistros(
+                    historicoPrecoRepository.getHistoricos().getLast().getDataCalculo()
+            );
+        }
 
         DefaultTableCellRenderer centralizador = new DefaultTableCellRenderer();
         centralizador.setHorizontalAlignment(SwingConstants.CENTER);
@@ -56,17 +56,24 @@ public class TelaCalculoMargemLucroPresenter {
             public void actionPerformed(ActionEvent e) {
                 try {
                     String data = view.getTxtData().getText().trim();
-                    // Resolver erro da data.
-                    if (!data.isEmpty()) {
-                        int dia = Integer.parseInt(data.substring(0, 2));
-                        int mes = Integer.parseInt(data.substring(3, 5));
-                        int ano = Integer.parseInt(data.substring(6, 10));
 
-                        atualizarPrecoVenda(LocalDate.of(ano, mes, dia));
-                    } else {
-                        throw new RuntimeException("O campo data está vazio.");
+                    if (data.isEmpty()) {
+                        throw new IllegalArgumentException("O campo data está vazio.");
                     }
 
+                    if (data.length() != 10) {
+                        throw new IllegalArgumentException("A data está incompleta!");
+                    }
+
+                    String dia = data.substring(0, 2);
+                    String mes = data.substring(3, 5);
+                    String ano = data.substring(6, 10);
+
+                    LocalDate dataCalculo = LocalDate.of(Integer.parseInt(ano), Integer.parseInt(mes), Integer.parseInt(dia));
+
+                    criarRegistros(dataCalculo);
+
+                    inserirResgistros(dataCalculo);
                 } catch (RuntimeException ex) {
                     JOptionPane.showMessageDialog(view, ex.getMessage());
                 }
@@ -90,29 +97,18 @@ public class TelaCalculoMargemLucroPresenter {
         }
     }
 
-    private void inserirResgistros() {
+    private void inserirResgistros(LocalDate data) {
         DefaultTableModel modelo = (DefaultTableModel) view.getTbProduto().getModel();
 
-        for (ProdutoModel produto : produtoRepository.getProdutos()) {
-            modelo.addRow(new Object[]{
-                    produto.getNome(),
-                    produto.getPrecoCusto(),
-                    produto.getCategoria().getNome(),
-                    produto.getCategoria().getPercentualLucro()
-                }
-            );
-        }
-    }
-
-    private void atualizarPrecoVenda(LocalDate data) {
-        DefaultTableModel modelo = (DefaultTableModel) view.getTbProduto().getModel();
-        IntervaloEntreCalculosService intervalo = new IntervaloEntreCalculosService();
-        int i = 0;
-
-        if (intervalo.verificarIntervaloData(data)) {
-            criarRegistros(data);
-            for (HistoricoPrecoModel registro : historicoPrecoRepository.getHistorico()) {
-                modelo.setValueAt(registro.getPrecoVenda(), i++, 4);
+        if (!historicoPrecoRepository.getHistoricos().isEmpty()) {
+            for (HistoricoPrecoModel registro : historicoPrecoRepository.getHistoricoPorData(data)) {
+                modelo.addRow(new Object[]{
+                    registro.getProduto().getNome(),
+                    registro.getProduto().getPrecoCusto(),
+                    registro.getProduto().getCategoria().getNome(),
+                    registro.getPercentualLucro(),
+                    registro.getPrecoVenda()
+                });
             }
         }
     }

@@ -9,5 +9,7 @@ import java.util.List;
 public interface IHistoricoPrecoRepository {
     void criarRegistro(LocalDate data, double percentual, double precoVenda, ProdutoModel produto);
 
-    List<HistoricoPrecoModel> getHistorico();
+    List<HistoricoPrecoModel> getHistoricos();
+
+    List<HistoricoPrecoModel> getHistoricoPorData(LocalDate data);
 }

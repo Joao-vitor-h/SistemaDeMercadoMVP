@@ -10,10 +10,10 @@ import java.util.Objects;
 
 public class HistoricoPrecoRepository implements IHistoricoPrecoRepository {
 
-    private List<HistoricoPrecoModel> historico;
+    private List<HistoricoPrecoModel> historicos;
 
     public HistoricoPrecoRepository() {
-        historico = new ArrayList<>();
+        historicos = new ArrayList<>();
     }
 
     @Override
@@ -30,13 +30,28 @@ public class HistoricoPrecoRepository implements IHistoricoPrecoRepository {
             throw new IllegalArgumentException("O preço de venda não está válido.");
         }
 
-        historico.add(
+        historicos.add(
                 new HistoricoPrecoModel(data, percentual, precoVenda, produto)
         );
     }
 
     @Override
-    public List<HistoricoPrecoModel> getHistorico() {
-        return historico;
+    public List<HistoricoPrecoModel> getHistoricos() {
+        return historicos;
+    }
+
+    @Override
+    public List<HistoricoPrecoModel> getHistoricoPorData(LocalDate data) {
+        Objects.requireNonNull(data, "A data está nula.");
+
+        List<HistoricoPrecoModel> registros = new ArrayList<>();
+
+        for (HistoricoPrecoModel historico : historicos) {
+            if (historico.getDataCalculo().equals(data)) {
+                registros.add(historico);
+            }
+        }
+
+        return registros;
     }
 }
