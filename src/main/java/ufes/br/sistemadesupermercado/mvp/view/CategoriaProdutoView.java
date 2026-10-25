@@ -1,14 +1,23 @@
 package ufes.br.sistemadesupermercado.mvp.view;
 
+import ufes.br.sistemadesupermercado.mvp.presenter.stateCategoria.CategoriaState;
+import ufes.br.sistemadesupermercado.mvp.presenter.stateCategoria.CategoriaVisualizacaoStatePresenter;
+import ufes.br.sistemadesupermercado.mvp.repository.ICategoriaRepository;
+
 import javax.swing.*;
+import java.util.Objects;
 
 public class CategoriaProdutoView extends javax.swing.JFrame {
 
     /**
      * Creates new form CategoriaProdutoView
      */
-    public CategoriaProdutoView() {
+    public CategoriaProdutoView(ICategoriaRepository categoriaRepository) {
         initComponents();
+
+        Objects.requireNonNull(categoriaRepository, "O repositório de categorias está nulo.");
+
+        this.estado = new CategoriaVisualizacaoStatePresenter(this, categoriaRepository);
     }
 
     /**
@@ -32,6 +41,7 @@ public class CategoriaProdutoView extends javax.swing.JFrame {
         btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnFechar = new javax.swing.JButton();
+        lblModo = new javax.swing.JLabel();
         dpCategoriasCadastradas = new javax.swing.JDesktopPane();
         scrlCategoria = new javax.swing.JScrollPane();
         tbCategoria = new javax.swing.JTable();
@@ -60,6 +70,8 @@ public class CategoriaProdutoView extends javax.swing.JFrame {
 
         btnFechar.setText("Fechar");
 
+        lblModo.setText("Modo: Visualização");
+
         dpCategoria.setLayer(lblCategoria, javax.swing.JLayeredPane.DEFAULT_LAYER);
         dpCategoria.setLayer(lblPercentual, javax.swing.JLayeredPane.DEFAULT_LAYER);
         dpCategoria.setLayer(txtCategoria, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -70,6 +82,7 @@ public class CategoriaProdutoView extends javax.swing.JFrame {
         dpCategoria.setLayer(btnSalvar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         dpCategoria.setLayer(btnCancelar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         dpCategoria.setLayer(btnFechar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        dpCategoria.setLayer(lblModo, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout dpCategoriaLayout = new javax.swing.GroupLayout(dpCategoria);
         dpCategoria.setLayout(dpCategoriaLayout);
@@ -96,14 +109,19 @@ public class CategoriaProdutoView extends javax.swing.JFrame {
                             .addComponent(lblCategoria))
                         .addGap(18, 18, 18)
                         .addGroup(dpCategoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPercentual, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtPercentual, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dpCategoriaLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblModo)
+                .addContainerGap())
         );
         dpCategoriaLayout.setVerticalGroup(
             dpCategoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dpCategoriaLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addComponent(lblModo)
+                .addGap(4, 4, 4)
                 .addGroup(dpCategoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCategoria)
                     .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -217,6 +235,7 @@ public class CategoriaProdutoView extends javax.swing.JFrame {
     private javax.swing.JDesktopPane dpCategoriaProduto;
     private javax.swing.JDesktopPane dpCategoriasCadastradas;
     private javax.swing.JLabel lblCategoria;
+    private javax.swing.JLabel lblModo;
     private javax.swing.JLabel lblPercentual;
     private javax.swing.JScrollPane scrlCategoria;
     private javax.swing.JTable tbCategoria;
@@ -224,6 +243,32 @@ public class CategoriaProdutoView extends javax.swing.JFrame {
     private javax.swing.JTextField txtPercentual;
     // End of variables declaration//GEN-END:variables
 
+    private CategoriaState estado;
+
+    public void setEstado(CategoriaState estado) {
+        Objects.requireNonNull(estado, "O estado está nulo.");
+        this.estado = estado;
+    }
+
+    public CategoriaState getEstado() {
+        return estado;
+    }
+
+    public void visualizar() {
+        estado.visualizar();
+    }
+
+    public void incluir() {
+        estado.incluir();
+    }
+
+    public void editar() {
+        estado.editar();
+    }
+
+    public void excluir() {
+        estado.excluir();
+    }
 
     public JButton getBtnCancelar() {
         return btnCancelar;
@@ -283,5 +328,9 @@ public class CategoriaProdutoView extends javax.swing.JFrame {
 
     public JTextField getTxtPercentual() {
         return txtPercentual;
+    }
+
+    public JLabel getLblModo() {
+        return lblModo;
     }
 }

@@ -1,10 +1,10 @@
 package ufes.br.sistemadesupermercado.mvp.presenter;
 
 import ufes.br.sistemadesupermercado.mvp.presenter.stateInclusaoEdicaoVisualizacao.TelaInclusaoProdutoStatePresenter;
-import ufes.br.sistemadesupermercado.mvp.repository.HistoricoPrecoRepository;
 import ufes.br.sistemadesupermercado.mvp.repository.ICategoriaRepository;
 import ufes.br.sistemadesupermercado.mvp.repository.IHistoricoPrecoRepository;
 import ufes.br.sistemadesupermercado.mvp.repository.IProdutoRepository;
+import ufes.br.sistemadesupermercado.mvp.view.CategoriaProdutoView;
 import ufes.br.sistemadesupermercado.mvp.view.InclusaoEdicaoVisualizacaoProdutoView;
 import ufes.br.sistemadesupermercado.mvp.view.TelaPrincipalView;
 
@@ -55,7 +55,7 @@ public class TelaPrincipalPresenter {
         view.getMenuItemCategoria().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                TelaCategoriaProdutoPresenter categoria = new TelaCategoriaProdutoPresenter();
+                CategoriaProdutoView telaCategoria = new CategoriaProdutoView(categoriaRepository);
             }
         });
 

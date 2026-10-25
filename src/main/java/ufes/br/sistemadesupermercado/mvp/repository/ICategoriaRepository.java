@@ -2,6 +2,7 @@ package ufes.br.sistemadesupermercado.mvp.repository;
 
 import ufes.br.sistemadesupermercado.mvp.model.CategoriaModel;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ICategoriaRepository {
@@ -14,4 +15,6 @@ public interface ICategoriaRepository {
     void removerCategoria(String nome);
 
     void editarCategoria(String nome, double percentual);
+
+    List<CategoriaModel> getCategorias();
 }

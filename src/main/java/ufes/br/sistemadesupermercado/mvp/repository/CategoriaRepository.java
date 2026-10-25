@@ -80,4 +80,9 @@ public class CategoriaRepository implements ICategoriaRepository {
             categorioOpt.get().setPercentualLucro(percentual);
         }
     }
+
+    @Override
+    public List<CategoriaModel> getCategorias() {
+        return categorias;
+    }
 }

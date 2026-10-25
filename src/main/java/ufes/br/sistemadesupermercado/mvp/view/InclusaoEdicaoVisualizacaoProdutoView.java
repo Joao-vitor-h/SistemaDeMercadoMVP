@@ -3,6 +3,7 @@ package ufes.br.sistemadesupermercado.mvp.view;
 import ufes.br.sistemadesupermercado.mvp.presenter.stateInclusaoEdicaoVisualizacao.InclusaoEdicaoVisualizacaoViewState;
 
 import javax.swing.*;
+import java.util.Objects;
 
 public class InclusaoEdicaoVisualizacaoProdutoView extends javax.swing.JFrame {
 
@@ -206,6 +207,7 @@ public class InclusaoEdicaoVisualizacaoProdutoView extends javax.swing.JFrame {
     private InclusaoEdicaoVisualizacaoViewState estado;
 
     public void setEstado(InclusaoEdicaoVisualizacaoViewState estado) {
+        Objects.requireNonNull(estado, "O estado está nulo.");
         this.estado = estado;
     }
 
