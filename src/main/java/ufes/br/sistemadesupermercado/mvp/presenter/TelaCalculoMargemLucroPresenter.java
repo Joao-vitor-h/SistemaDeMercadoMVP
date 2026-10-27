@@ -80,6 +80,13 @@ public class TelaCalculoMargemLucroPresenter {
             }
         });
 
+        view.getBtnFechar().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fechar();
+            }
+        });
+
         view.setVisible(true);
     }
 
@@ -111,5 +118,9 @@ public class TelaCalculoMargemLucroPresenter {
                 });
             }
         }
+    }
+
+    private void fechar() {
+        view.dispose();
     }
 }

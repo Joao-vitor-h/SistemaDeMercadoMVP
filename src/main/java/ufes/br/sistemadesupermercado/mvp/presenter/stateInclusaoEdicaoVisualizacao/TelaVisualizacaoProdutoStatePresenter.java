@@ -33,11 +33,11 @@ public class TelaVisualizacaoProdutoStatePresenter extends InclusaoEdicaoVisuali
         view.setTitle("Produto - Visualização");
         view.getTxtNomeProduto().setText(produto.getNome());
         view.getTxtPrecoCusto().setText(String.valueOf(produto.getPrecoCusto()));
-        view.getTxtNomeProduto().setEnabled(false);
-        view.getTxtPrecoCusto().setEnabled(false);
-        view.getCbCategoria().setEnabled(false);
-        view.getTxtPrecoVenda().setEnabled(false);
-        view.getTxtMargem().setEnabled(false);
+        view.getTxtNomeProduto().setEditable(false);
+        view.getTxtPrecoCusto().setEditable(false);
+        view.getCbCategoria().setEditable(false);
+        view.getTxtPrecoVenda().setEditable(false);
+        view.getTxtMargem().setEditable(false);
         view.getCbCategoria().setSelectedIndex(produto.getCategoria().getId() - 1);
         view.getBtnEditar().setText("Editar");
         view.getBtnFechar().setText("Fechar");

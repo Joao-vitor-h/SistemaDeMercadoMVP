@@ -35,8 +35,8 @@ public class TelaInclusaoProdutoStatePresenter extends InclusaoEdicaoVisualizaca
         view.getTxtNomeProduto().setEnabled(true);
         view.getTxtPrecoCusto().setEnabled(true);
         view.getCbCategoria().setEnabled(true);
-        view.getTxtMargem().setEnabled(false);
-        view.getTxtPrecoVenda().setEnabled(false);
+        view.getTxtMargem().setEditable(false);
+        view.getTxtPrecoVenda().setEditable(false);
         view.getBtnEditar().setText("Salvar");
         view.getBtnFechar().setText("Cancelar");
         view.getTxtNomeProduto().setText("");

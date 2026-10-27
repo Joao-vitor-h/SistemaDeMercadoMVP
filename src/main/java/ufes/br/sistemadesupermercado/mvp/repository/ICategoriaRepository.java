@@ -14,7 +14,7 @@ public interface ICategoriaRepository {
 
     void removerCategoria(String nome);
 
-    void editarCategoria(String nome, double percentual);
+    void editarCategoria(String nome, String novoNome, double percentual);
 
     List<CategoriaModel> getCategorias();
 }

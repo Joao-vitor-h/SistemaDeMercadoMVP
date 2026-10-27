@@ -39,7 +39,7 @@ public class CategoriaRepository implements ICategoriaRepository {
             throw new RuntimeException("A categoria já existe.");
         }
 
-        if (percentual <= 0) {
+        if (percentual <= 0.0) {
             throw new IllegalArgumentException("O percentual do produto é inválido.");
         }
 
@@ -74,9 +74,10 @@ public class CategoriaRepository implements ICategoriaRepository {
     }
 
     @Override
-    public void editarCategoria(String nome, double percentual) {
+    public void editarCategoria(String nome, String novoNome, double percentual) {
         if (verificarExistenciaCategoria(nome)) {
             Optional<CategoriaModel> categorioOpt = buscarCategoria(nome);
+            categorioOpt.get().setNome(novoNome);
             categorioOpt.get().setPercentualLucro(percentual);
         }
     }

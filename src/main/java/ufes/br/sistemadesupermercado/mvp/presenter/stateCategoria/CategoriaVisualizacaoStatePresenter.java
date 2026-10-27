@@ -26,23 +26,32 @@ public class CategoriaVisualizacaoStatePresenter extends CategoriaState {
     private void configuraView() {
         view.setLocationRelativeTo(null);
 
-        view.getBtnSalvar().setEnabled(false);
-        view.getBtnCancelar().setEnabled(false);
+        JTable tabela = view.getTbCategoria();
 
-        inserirCategorias();
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
 
         DefaultTableCellRenderer centralizador = new DefaultTableCellRenderer();
         centralizador.setHorizontalAlignment(SwingConstants.CENTER);
 
-        JTable tabela = view.getTbCategoria();
+        view.getLblModo().setText("Modo: Visualização");
+
+        view.getTxtCategoria().setEditable(false);
+        view.getTxtPercentual().setEditable(false);
+
+        view.getBtnSalvar().setEnabled(false);
+        view.getBtnCancelar().setEnabled(false);
+        view.getBtnNovo().setEnabled(true);
+        view.getBtnEditar().setEnabled(true);
+        view.getBtnExcluir().setEnabled(true);
+        view.getBtnFechar().setEnabled(true);
+
+        if (modelo.getRowCount() == 0) {
+            inserirCategorias();
+        }
 
         for (int i = 0; i < tabela.getColumnCount(); i++) {
             tabela.getColumnModel().getColumn(i).setCellRenderer(centralizador);
         }
-
-        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
-
-        List<String> nomeCategoria = new ArrayList<>();
 
         MouseListener selecionaRegistro = new MouseAdapter() {
             @Override
@@ -65,7 +74,23 @@ public class CategoriaVisualizacaoStatePresenter extends CategoriaState {
         ActionListener edita = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                view.editar();
+                try {
+                    String nomeCategoria = view.getTxtCategoria().getText();
+                    String percentual = view.getTxtPercentual().getText();
+
+                    if (nomeCategoria.isBlank() || percentual.isBlank()) {
+                        throw new RuntimeException("Selecione uma categoria para editar.");
+                    }
+
+                    if (!categoriaRepository.verificarExistenciaCategoria(nomeCategoria)) {
+                        throw new RuntimeException("Essa categoria não existe! Selecione uma categoria.");
+                    }
+
+                    view.editar();
+                } catch (RuntimeException ex) {
+                    JOptionPane.showMessageDialog(view, ex.getMessage());
+                }
+
             }
         };
 
@@ -109,28 +134,38 @@ public class CategoriaVisualizacaoStatePresenter extends CategoriaState {
 
     @Override
     public void incluir() {
+        removerMonitores();
+        view.setEstado(new CategoriaInclusaoStatePresenter(view, categoriaRepository));
+    }
+
+    @Override
+    public void editar() {
+        removerMonitores();
+        view.setEstado(new CategoriaEdicaoStatePresenter(view, categoriaRepository));
+    }
+
+    @Override
+    public void excluir() {
+        removerMonitores();
+        view.setEstado(new CategoriaExclusaoStatePresenter(view, categoriaRepository));
+    }
+
+    private void fechar() {
+        view.dispose();
+    }
+
+    private void removerMonitores() {
         view.getTbCategoria().removeMouseListener(monitoresMouse.getFirst());
 
         view.getBtnNovo().removeActionListener(monitoresAcao.get(0));
         view.getBtnEditar().removeActionListener(monitoresAcao.get(1));
         view.getBtnExcluir().removeActionListener(monitoresAcao.get(2));
         view.getBtnFechar().removeActionListener(monitoresAcao.get(3));
-
-        view.setEstado(new CategoriaInclusaoStatePresenter(view, categoriaRepository));
     }
 
     @Override
-    public void editar() {
-
-    }
-
-    @Override
-    public void excluir() {
-
-    }
-
-    private void fechar() {
-        view.dispose();
+    public String toString() {
+        return "Visualizar";
     }
 
 }
