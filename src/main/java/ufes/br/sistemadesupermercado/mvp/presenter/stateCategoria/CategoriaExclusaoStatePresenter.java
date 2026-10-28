@@ -1,6 +1,8 @@
 package ufes.br.sistemadesupermercado.mvp.presenter.stateCategoria;
 
+import ufes.br.sistemadesupermercado.mvp.model.ProdutoModel;
 import ufes.br.sistemadesupermercado.mvp.repository.ICategoriaRepository;
+import ufes.br.sistemadesupermercado.mvp.repository.IProdutoRepository;
 import ufes.br.sistemadesupermercado.mvp.view.CategoriaProdutoView;
 
 import javax.swing.*;
@@ -15,8 +17,8 @@ public class CategoriaExclusaoStatePresenter extends CategoriaState {
     private List<MouseListener> monitoresMouse;
     private List<ActionListener> monitoresAcao;
 
-    public CategoriaExclusaoStatePresenter(CategoriaProdutoView view, ICategoriaRepository categoriaRepository) {
-        super(view, categoriaRepository);
+    public CategoriaExclusaoStatePresenter(CategoriaProdutoView view, ICategoriaRepository categoriaRepository, IProdutoRepository produtoRepository) {
+        super(view, categoriaRepository, produtoRepository);
         this.monitoresMouse = new ArrayList<>();
         this.monitoresAcao = new ArrayList<>();
         configuraView();
@@ -34,7 +36,7 @@ public class CategoriaExclusaoStatePresenter extends CategoriaState {
         view.getTxtPercentual().setEditable(false);
 
         view.getBtnSalvar().setEnabled(false);
-        view.getBtnCancelar().setEnabled(false);
+        view.getBtnCancelar().setEnabled(true);
         view.getBtnNovo().setEnabled(false);
         view.getBtnEditar().setEnabled(false);
         view.getBtnExcluir().setEnabled(true);
@@ -65,18 +67,31 @@ public class CategoriaExclusaoStatePresenter extends CategoriaState {
             }
         };
 
+        ActionListener cancela = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                view.visualizar();
+            }
+        };
+
         view.getTbCategoria().addMouseListener(clique);
         view.getBtnExcluir().addActionListener(exclui);
+        view.getBtnCancelar().addActionListener(cancela);
 
         monitoresMouse.add(clique);
         monitoresAcao.add(exclui);
+        monitoresAcao.add(cancela);
 
         view.setVisible(true);
     }
 
     @Override
     public void visualizar() {
-        view.setEstado(new CategoriaVisualizacaoStatePresenter(view, categoriaRepository));
+        view.getTbCategoria().removeMouseListener(monitoresMouse.get(0));
+        view.getBtnExcluir().removeActionListener(monitoresAcao.get(0));
+        view.getBtnCancelar().removeActionListener(monitoresAcao.get(1));
+
+        view.setEstado(new CategoriaVisualizacaoStatePresenter(view, categoriaRepository, produtoRepository));
     }
 
     @Override
@@ -87,6 +102,12 @@ public class CategoriaExclusaoStatePresenter extends CategoriaState {
     private void confirmar(String nomeCategoria) {
         if (nomeCategoria.isBlank()) {
             throw new RuntimeException("Selecione uma categoria para excluir.");
+        }
+
+        for (ProdutoModel produto : produtoRepository.getProdutos()) {
+            if (produto.getCategoria().getNome().equalsIgnoreCase(nomeCategoria)) {
+                throw new RuntimeException("A categoria não pode ser excluída, pois está relacionada a pelo menos um produto.");
+            }
         }
 
         Object[] alternativas = {"Sim", "Não"};
@@ -116,8 +137,6 @@ public class CategoriaExclusaoStatePresenter extends CategoriaState {
         view.getTxtCategoria().setText("");
         view.getTxtPercentual().setText("");
 
-        view.getTbCategoria().removeMouseListener(monitoresMouse.get(0));
-        view.getBtnExcluir().removeActionListener(monitoresAcao.get(0));
         view.visualizar();
     }
 }

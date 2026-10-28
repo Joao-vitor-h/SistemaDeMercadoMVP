@@ -3,6 +3,7 @@ package ufes.br.sistemadesupermercado.mvp.view;
 import ufes.br.sistemadesupermercado.mvp.presenter.stateCategoria.CategoriaState;
 import ufes.br.sistemadesupermercado.mvp.presenter.stateCategoria.CategoriaVisualizacaoStatePresenter;
 import ufes.br.sistemadesupermercado.mvp.repository.ICategoriaRepository;
+import ufes.br.sistemadesupermercado.mvp.repository.IProdutoRepository;
 
 import javax.swing.*;
 import java.util.Objects;
@@ -12,12 +13,14 @@ public class CategoriaProdutoView extends javax.swing.JFrame {
     /**
      * Creates new form CategoriaProdutoView
      */
-    public CategoriaProdutoView(ICategoriaRepository categoriaRepository) {
+    public CategoriaProdutoView(ICategoriaRepository categoriaRepository, IProdutoRepository produtoRepository) {
         initComponents();
 
         Objects.requireNonNull(categoriaRepository, "O repositório de categorias está nulo.");
+        Objects.requireNonNull(produtoRepository, "O repositório de produtos está nulo.");
 
-        this.estado = new CategoriaVisualizacaoStatePresenter(this, categoriaRepository);
+        this.estado = new CategoriaVisualizacaoStatePresenter(this, categoriaRepository, produtoRepository);
+
     }
 
     /**

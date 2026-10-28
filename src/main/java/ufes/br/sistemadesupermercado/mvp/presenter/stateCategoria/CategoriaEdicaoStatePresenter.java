@@ -2,6 +2,7 @@ package ufes.br.sistemadesupermercado.mvp.presenter.stateCategoria;
 
 import ufes.br.sistemadesupermercado.mvp.model.CategoriaModel;
 import ufes.br.sistemadesupermercado.mvp.repository.ICategoriaRepository;
+import ufes.br.sistemadesupermercado.mvp.repository.IProdutoRepository;
 import ufes.br.sistemadesupermercado.mvp.view.CategoriaProdutoView;
 
 import javax.swing.*;
@@ -17,8 +18,8 @@ public class CategoriaEdicaoStatePresenter extends CategoriaState {
 
     private List<ActionListener> monitores;
 
-    public CategoriaEdicaoStatePresenter(CategoriaProdutoView view, ICategoriaRepository categoriaRepository) {
-        super(view, categoriaRepository);
+    public CategoriaEdicaoStatePresenter(CategoriaProdutoView view, ICategoriaRepository categoriaRepository, IProdutoRepository produtoRepository) {
+        super(view, categoriaRepository, produtoRepository);
         this.monitores = new ArrayList<>();
         configuraView();
     }
@@ -91,7 +92,7 @@ public class CategoriaEdicaoStatePresenter extends CategoriaState {
         view.getBtnSalvar().removeActionListener(monitores.get(0));
         view.getBtnCancelar().removeActionListener(monitores.get(1));
 
-        view.setEstado(new CategoriaVisualizacaoStatePresenter(view, categoriaRepository));
+        view.setEstado(new CategoriaVisualizacaoStatePresenter(view, categoriaRepository, produtoRepository));
     }
 
     @Override

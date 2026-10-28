@@ -2,6 +2,7 @@ package ufes.br.sistemadesupermercado.mvp.presenter.stateCategoria;
 
 import ufes.br.sistemadesupermercado.mvp.model.CategoriaModel;
 import ufes.br.sistemadesupermercado.mvp.repository.ICategoriaRepository;
+import ufes.br.sistemadesupermercado.mvp.repository.IProdutoRepository;
 import ufes.br.sistemadesupermercado.mvp.view.CategoriaProdutoView;
 
 import javax.swing.*;
@@ -16,8 +17,8 @@ public class CategoriaVisualizacaoStatePresenter extends CategoriaState {
     private List<ActionListener> monitoresAcao;
     private List<MouseListener> monitoresMouse;
 
-    public CategoriaVisualizacaoStatePresenter(CategoriaProdutoView view, ICategoriaRepository categoriaRepository) {
-        super(view, categoriaRepository);
+    public CategoriaVisualizacaoStatePresenter(CategoriaProdutoView view, ICategoriaRepository categoriaRepository, IProdutoRepository produtoRepository) {
+        super(view, categoriaRepository, produtoRepository);
         monitoresAcao = new ArrayList<>();
         monitoresMouse = new ArrayList<>();
         configuraView();
@@ -135,19 +136,19 @@ public class CategoriaVisualizacaoStatePresenter extends CategoriaState {
     @Override
     public void incluir() {
         removerMonitores();
-        view.setEstado(new CategoriaInclusaoStatePresenter(view, categoriaRepository));
+        view.setEstado(new CategoriaInclusaoStatePresenter(view, categoriaRepository, produtoRepository));
     }
 
     @Override
     public void editar() {
         removerMonitores();
-        view.setEstado(new CategoriaEdicaoStatePresenter(view, categoriaRepository));
+        view.setEstado(new CategoriaEdicaoStatePresenter(view, categoriaRepository, produtoRepository));
     }
 
     @Override
     public void excluir() {
         removerMonitores();
-        view.setEstado(new CategoriaExclusaoStatePresenter(view, categoriaRepository));
+        view.setEstado(new CategoriaExclusaoStatePresenter(view, categoriaRepository, produtoRepository));
     }
 
     private void fechar() {

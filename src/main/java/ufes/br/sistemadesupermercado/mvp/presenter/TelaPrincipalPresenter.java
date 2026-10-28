@@ -55,7 +55,7 @@ public class TelaPrincipalPresenter {
         view.getMenuItemCategoria().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CategoriaProdutoView telaCategoria = new CategoriaProdutoView(categoriaRepository);
+                CategoriaProdutoView telaCategoria = new CategoriaProdutoView(categoriaRepository, produtoRepository);
             }
         });
 

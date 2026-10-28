@@ -1,6 +1,7 @@
 package ufes.br.sistemadesupermercado.mvp.presenter.stateCategoria;
 
 import ufes.br.sistemadesupermercado.mvp.repository.ICategoriaRepository;
+import ufes.br.sistemadesupermercado.mvp.repository.IProdutoRepository;
 import ufes.br.sistemadesupermercado.mvp.view.CategoriaProdutoView;
 
 import java.util.Objects;
@@ -9,13 +10,16 @@ public abstract class CategoriaState {
 
     protected CategoriaProdutoView view;
     protected ICategoriaRepository categoriaRepository;
+    protected IProdutoRepository produtoRepository;
 
-    public CategoriaState(CategoriaProdutoView view, ICategoriaRepository categoriaRepository) {
+    public CategoriaState(CategoriaProdutoView view, ICategoriaRepository categoriaRepository, IProdutoRepository produtoRepository) {
         Objects.requireNonNull(view, "A view está nula.");
         Objects.requireNonNull(categoriaRepository, "O repositório de categorias está nulo.");
+        Objects.requireNonNull(produtoRepository, "O repositório de produtos está nulo.");
 
         this.view = view;
         this.categoriaRepository = categoriaRepository;
+        this.produtoRepository = produtoRepository;
     }
 
     public void visualizar() {
