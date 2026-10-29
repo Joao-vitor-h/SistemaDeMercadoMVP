@@ -1,0 +1,106 @@
+package ufes.br.sistemadesupermercado.mvp.presenter.stateInclusaoEdicaoVisualizacao;
+
+import ufes.br.sistemadesupermercado.mvp.model.CategoriaModel;
+import ufes.br.sistemadesupermercado.mvp.repository.ICategoriaRepository;
+import ufes.br.sistemadesupermercado.mvp.repository.IProdutoRepository;
+import ufes.br.sistemadesupermercado.mvp.view.InclusaoEdicaoVisualizacaoProdutoView;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+public class TelaInclusaoBuscaProdutoStatePresenter extends InclusaoEdicaoVisualizacaoViewState {
+
+    private IProdutoRepository produtoRepository;
+    private ICategoriaRepository categoriaRepository;
+    private List<ActionListener> monitores;
+    private DefaultTableModel modelo;
+
+    public TelaInclusaoBuscaProdutoStatePresenter(InclusaoEdicaoVisualizacaoProdutoView view, IProdutoRepository produtoRepository, ICategoriaRepository categoriaRepository, DefaultTableModel modelo) {
+        super(view);
+        this.produtoRepository = produtoRepository;
+        this.categoriaRepository = categoriaRepository;
+        this.monitores = new ArrayList<>();
+        this.modelo = modelo;
+
+        configuraView();
+    }
+
+    // Aplicar padrão Observer sempre que ocorrer uma inserção na tela de busca dos produtos.
+    private void configuraView() {
+        view.setLocationRelativeTo(null);
+
+        view.setTitle("Produto - Inclusão/Edição");
+        view.getBtnVisualizarHistorico().setVisible(false);
+        view.getTxtNomeProduto().setEditable(true);
+        view.getTxtPrecoCusto().setEditable(true);
+        view.getCbCategoria().setEnabled(true);
+        view.getTxtMargem().setEditable(false);
+        view.getTxtPrecoVenda().setEditable(false);
+        view.getBtnEditar().setText("Salvar");
+        view.getBtnFechar().setText("Cancelar");
+        view.getTxtNomeProduto().setText("");
+        view.getTxtPrecoCusto().setText("");
+
+        ActionListener salva = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    String nome = view.getTxtNomeProduto().getText();
+                    double preco = Double.parseDouble(view.getTxtPrecoCusto().getText());
+                    Object categoria = view.getCbCategoria().getSelectedItem();
+
+                    criarNovoProduto(nome, preco, categoria.toString());
+                } catch (RuntimeException ex) {
+                    JOptionPane.showMessageDialog(view, ex.getMessage());
+                }
+            }
+        };
+
+        ActionListener fecha = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cancelar();
+            }
+        };
+
+        view.getBtnEditar().addActionListener(salva);
+        view.getBtnFechar().addActionListener(fecha);
+
+        monitores.add(salva);
+        monitores.add(fecha);
+
+        view.setVisible(true);
+    }
+
+    private void criarNovoProduto(String nome, double precoCusto, String categoria) {
+        Optional<CategoriaModel> categoriaOpt = categoriaRepository.buscarCategoria(categoria);
+
+        if (categoriaOpt.isPresent()) {
+            produtoRepository.adicionarProduto(nome, precoCusto, categoriaOpt.get());
+        }
+
+        modelo.addRow(new Object[]{nome, precoCusto, categoria});
+
+        view.getTxtNomeProduto().setText("");
+        view.getTxtPrecoCusto().setText("");
+
+        view.visualizar(nome);
+    }
+
+    private void cancelar() {
+        view.dispose();
+    }
+
+    @Override
+    public void visualizar(String nome) {
+
+        view.getBtnEditar().removeActionListener(monitores.get(0));
+        view.getBtnFechar().removeActionListener(monitores.get(1));
+
+        view.setEstado(new TelaVisualizacaoProdutoStatePresenter(view, nome, produtoRepository, categoriaRepository));
+    }
+}

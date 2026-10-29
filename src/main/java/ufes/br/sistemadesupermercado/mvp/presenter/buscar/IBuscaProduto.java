@@ -1,7 +1,5 @@
 package ufes.br.sistemadesupermercado.mvp.presenter.buscar;
 
-import ufes.br.sistemadesupermercado.mvp.presenter.TelaBuscaProdutosPresenter;
-
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 

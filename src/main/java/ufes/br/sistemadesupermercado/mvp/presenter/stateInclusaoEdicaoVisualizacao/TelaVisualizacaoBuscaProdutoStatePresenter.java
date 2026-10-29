@@ -35,7 +35,7 @@ public class TelaVisualizacaoBuscaProdutoStatePresenter extends InclusaoEdicaoVi
     private void configuraView(String nomeProduto) {
         view.setLocationRelativeTo(null);
 
-        if (historicoPrecoRepository.getHistoricos() != null) {
+        if (!historicoPrecoRepository.getHistoricos().isEmpty()) {
             LocalDate data = historicoPrecoRepository.getHistoricos().getLast().getDataCalculo();
 
             for (HistoricoPrecoModel registro : historicoPrecoRepository.getHistoricoPorData(data)) {

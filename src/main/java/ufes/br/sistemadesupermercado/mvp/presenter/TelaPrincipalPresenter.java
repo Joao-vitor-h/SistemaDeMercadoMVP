@@ -50,7 +50,7 @@ public class TelaPrincipalPresenter {
             }
         });
 
-        TelaBuscaProdutosPresenter buscaProduto = new TelaBuscaProdutosPresenter(produtoRepository, categoriaRepository, historicoPrecoRepository);
+        TelaBuscaProdutosObserverPresenter buscaProduto = new TelaBuscaProdutosObserverPresenter(produtoRepository, categoriaRepository, historicoPrecoRepository);
         buscaProduto.getView().setVisible(false);
 
         view.getMenuItemBuscarProdutos().addActionListener(new ActionListener() {

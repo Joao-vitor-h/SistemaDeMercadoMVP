@@ -4,7 +4,7 @@ import ufes.br.sistemadesupermercado.mvp.model.HistoricoPrecoModel;
 import ufes.br.sistemadesupermercado.mvp.model.ProdutoModel;
 import ufes.br.sistemadesupermercado.mvp.presenter.buscar.BuscaProdutoService;
 import ufes.br.sistemadesupermercado.mvp.presenter.observer.IHistoricoObserver;
-import ufes.br.sistemadesupermercado.mvp.presenter.stateInclusaoEdicaoVisualizacao.TelaInclusaoProdutoStatePresenter;
+import ufes.br.sistemadesupermercado.mvp.presenter.stateInclusaoEdicaoVisualizacao.TelaInclusaoBuscaProdutoStatePresenter;
 import ufes.br.sistemadesupermercado.mvp.presenter.stateInclusaoEdicaoVisualizacao.TelaVisualizacaoBuscaProdutoStatePresenter;
 import ufes.br.sistemadesupermercado.mvp.repository.ICategoriaRepository;
 import ufes.br.sistemadesupermercado.mvp.repository.IHistoricoPrecoRepository;
@@ -25,14 +25,14 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 
-public class TelaBuscaProdutosPresenter implements IHistoricoObserver {
+public class TelaBuscaProdutosObserverPresenter implements IHistoricoObserver {
     
     private BuscarProdutosView view;
     private IProdutoRepository produtoRepository;
     private ICategoriaRepository categoriaRepository;
     private IHistoricoPrecoRepository historicoPrecoRepository;
 
-    public TelaBuscaProdutosPresenter(IProdutoRepository produtoRepository, ICategoriaRepository categoriaRepository, IHistoricoPrecoRepository historicoPrecoRepository) {
+    public TelaBuscaProdutosObserverPresenter(IProdutoRepository produtoRepository, ICategoriaRepository categoriaRepository, IHistoricoPrecoRepository historicoPrecoRepository) {
         Objects.requireNonNull(produtoRepository, "O repositório de produtos está nulo.");
         Objects.requireNonNull(categoriaRepository, "O repositório de categorias está nulo.");
         Objects.requireNonNull(historicoPrecoRepository, "O repositório de históricos está nulo.");
@@ -94,7 +94,7 @@ public class TelaBuscaProdutosPresenter implements IHistoricoObserver {
             @Override
             public void actionPerformed(ActionEvent e) {
                 InclusaoEdicaoVisualizacaoProdutoView telaInclusao = new InclusaoEdicaoVisualizacaoProdutoView();
-                telaInclusao.setEstado(new TelaInclusaoProdutoStatePresenter(telaInclusao, produtoRepository, categoriaRepository));
+                telaInclusao.setEstado(new TelaInclusaoBuscaProdutoStatePresenter(telaInclusao, produtoRepository, categoriaRepository, (DefaultTableModel) view.getTbProdutos().getModel()));
             }
         });
 
@@ -119,7 +119,6 @@ public class TelaBuscaProdutosPresenter implements IHistoricoObserver {
 
                     InclusaoEdicaoVisualizacaoProdutoView telaVisualiza = new InclusaoEdicaoVisualizacaoProdutoView();
                     telaVisualiza.setEstado(new TelaVisualizacaoBuscaProdutoStatePresenter(telaVisualiza, nome, produtoRepository, categoriaRepository, historicoPrecoRepository));
-
                 } catch (RuntimeException ex) {
                     JOptionPane.showMessageDialog(view, "Selecione um produto!");
                 }

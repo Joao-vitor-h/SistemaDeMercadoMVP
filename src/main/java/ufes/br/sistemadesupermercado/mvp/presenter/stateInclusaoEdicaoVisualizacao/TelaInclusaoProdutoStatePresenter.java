@@ -6,6 +6,7 @@ import ufes.br.sistemadesupermercado.mvp.repository.IProdutoRepository;
 import ufes.br.sistemadesupermercado.mvp.view.InclusaoEdicaoVisualizacaoProdutoView;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +74,7 @@ public class TelaInclusaoProdutoStatePresenter extends InclusaoEdicaoVisualizaca
         view.setVisible(true);
     }
 
-    private void criarNovoProduto(java.lang.String nome, double precoCusto, String categoria) {
+    private void criarNovoProduto(String nome, double precoCusto, String categoria) {
         Optional<CategoriaModel> categoriaOpt = categoriaRepository.buscarCategoria(categoria);
 
         if (categoriaOpt.isPresent()) {
