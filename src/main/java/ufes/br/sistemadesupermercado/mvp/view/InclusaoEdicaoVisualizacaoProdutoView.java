@@ -3,6 +3,8 @@ package ufes.br.sistemadesupermercado.mvp.view;
 import ufes.br.sistemadesupermercado.mvp.presenter.stateInclusaoEdicaoVisualizacao.InclusaoEdicaoVisualizacaoViewState;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.util.Objects;
 
 public class InclusaoEdicaoVisualizacaoProdutoView extends javax.swing.JFrame {

@@ -5,7 +5,8 @@ import ufes.br.sistemadesupermercado.mvp.model.ProdutoModel;
 import ufes.br.sistemadesupermercado.mvp.repository.IHistoricoPrecoRepository;
 import ufes.br.sistemadesupermercado.mvp.repository.IProdutoRepository;
 import ufes.br.sistemadesupermercado.mvp.service.CalculoPrecoVendaService;
-import ufes.br.sistemadesupermercado.mvp.service.HistoricoDePrecoService;
+import ufes.br.sistemadesupermercado.mvp.service.HistoricoDePrecoServiceObserver;
+import ufes.br.sistemadesupermercado.mvp.service.IntervaloEntreCalculosService;
 import ufes.br.sistemadesupermercado.mvp.view.CalculoMargemLucroView;
 
 import javax.swing.*;
@@ -21,14 +22,17 @@ public class TelaCalculoMargemLucroPresenter {
     private CalculoMargemLucroView view;
     private IProdutoRepository produtoRepository;
     private IHistoricoPrecoRepository historicoPrecoRepository;
+    private HistoricoDePrecoServiceObserver registro;
 
-    public TelaCalculoMargemLucroPresenter(IProdutoRepository produtoRepository, IHistoricoPrecoRepository historicoPrecoRepository) {
+    public TelaCalculoMargemLucroPresenter(IProdutoRepository produtoRepository, IHistoricoPrecoRepository historicoPrecoRepository, HistoricoDePrecoServiceObserver registro) {
         Objects.requireNonNull(produtoRepository, "O repositório de produtos está nulo");
         Objects.requireNonNull(historicoPrecoRepository, "O repositório de históricos está nulo.");
+        Objects.requireNonNull(registro, "O histórico preço service está nulo.");
 
         view = new CalculoMargemLucroView();
         this.produtoRepository = produtoRepository;
         this.historicoPrecoRepository = historicoPrecoRepository;
+        this.registro = registro;
 
         configuraView();
     }
@@ -71,9 +75,14 @@ public class TelaCalculoMargemLucroPresenter {
 
                     LocalDate dataCalculo = LocalDate.of(Integer.parseInt(ano), Integer.parseInt(mes), Integer.parseInt(dia));
 
-                    criarRegistros(dataCalculo);
+                    IntervaloEntreCalculosService intervalo = new IntervaloEntreCalculosService();
 
-                    inserirResgistros(dataCalculo);
+                    if (intervalo.verificarIntervaloData(dataCalculo)) {
+                        criarRegistros(dataCalculo);
+                        inserirResgistros(dataCalculo);
+                    } else {
+                        throw new RuntimeException("Não é possível calcular preço de venda, pois a data inserida não atende ao intervalo de 10 dias.");
+                    }
                 } catch (RuntimeException ex) {
                     JOptionPane.showMessageDialog(view, ex.getMessage());
                 }
@@ -92,10 +101,9 @@ public class TelaCalculoMargemLucroPresenter {
 
     private void criarRegistros(LocalDate data) {
         CalculoPrecoVendaService calculoPrecoVenda = new CalculoPrecoVendaService();
-        HistoricoDePrecoService historicoDePrecoService = new HistoricoDePrecoService(historicoPrecoRepository);
 
         for (ProdutoModel produto : produtoRepository.getProdutos()) {
-            historicoDePrecoService.adicionarRegistro(
+            registro.adicionarRegistro(
                     data,
                     produto.getCategoria().getPercentualLucro().doubleValue(),
                     calculoPrecoVenda.calcularPrecoVenda(produto),
@@ -122,5 +130,9 @@ public class TelaCalculoMargemLucroPresenter {
 
     private void fechar() {
         view.dispose();
+    }
+
+    public CalculoMargemLucroView getView() {
+        return view;
     }
 }

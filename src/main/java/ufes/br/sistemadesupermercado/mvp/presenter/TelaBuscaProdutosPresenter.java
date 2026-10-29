@@ -1,10 +1,13 @@
 package ufes.br.sistemadesupermercado.mvp.presenter;
 
+import ufes.br.sistemadesupermercado.mvp.model.HistoricoPrecoModel;
 import ufes.br.sistemadesupermercado.mvp.model.ProdutoModel;
 import ufes.br.sistemadesupermercado.mvp.presenter.buscar.BuscaProdutoService;
+import ufes.br.sistemadesupermercado.mvp.presenter.observer.IHistoricoObserver;
 import ufes.br.sistemadesupermercado.mvp.presenter.stateInclusaoEdicaoVisualizacao.TelaInclusaoProdutoStatePresenter;
 import ufes.br.sistemadesupermercado.mvp.presenter.stateInclusaoEdicaoVisualizacao.TelaVisualizacaoBuscaProdutoStatePresenter;
 import ufes.br.sistemadesupermercado.mvp.repository.ICategoriaRepository;
+import ufes.br.sistemadesupermercado.mvp.repository.IHistoricoPrecoRepository;
 import ufes.br.sistemadesupermercado.mvp.repository.IProdutoRepository;
 import ufes.br.sistemadesupermercado.mvp.view.BuscarProdutosView;
 import ufes.br.sistemadesupermercado.mvp.view.InclusaoEdicaoVisualizacaoProdutoView;
@@ -19,19 +22,24 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.*;
 
-public class TelaBuscaProdutosPresenter {
+public class TelaBuscaProdutosPresenter implements IHistoricoObserver {
     
     private BuscarProdutosView view;
     private IProdutoRepository produtoRepository;
     private ICategoriaRepository categoriaRepository;
+    private IHistoricoPrecoRepository historicoPrecoRepository;
 
-    public TelaBuscaProdutosPresenter(IProdutoRepository produtoRepository, ICategoriaRepository categoriaRepository) {
+    public TelaBuscaProdutosPresenter(IProdutoRepository produtoRepository, ICategoriaRepository categoriaRepository, IHistoricoPrecoRepository historicoPrecoRepository) {
         Objects.requireNonNull(produtoRepository, "O repositório de produtos está nulo.");
         Objects.requireNonNull(categoriaRepository, "O repositório de categorias está nulo.");
+        Objects.requireNonNull(historicoPrecoRepository, "O repositório de históricos está nulo.");
+
         this.produtoRepository = produtoRepository;
         this.categoriaRepository = categoriaRepository;
+        this.historicoPrecoRepository = historicoPrecoRepository;
         this.view = new BuscarProdutosView();
         configuraView();
     }
@@ -110,7 +118,7 @@ public class TelaBuscaProdutosPresenter {
                     nomeProduto.clear();
 
                     InclusaoEdicaoVisualizacaoProdutoView telaVisualiza = new InclusaoEdicaoVisualizacaoProdutoView();
-                    telaVisualiza.setEstado(new TelaVisualizacaoBuscaProdutoStatePresenter(telaVisualiza, nome, produtoRepository, categoriaRepository));
+                    telaVisualiza.setEstado(new TelaVisualizacaoBuscaProdutoStatePresenter(telaVisualiza, nome, produtoRepository, categoriaRepository, historicoPrecoRepository));
 
                 } catch (RuntimeException ex) {
                     JOptionPane.showMessageDialog(view, "Selecione um produto!");
@@ -142,9 +150,24 @@ public class TelaBuscaProdutosPresenter {
             String nome = produto.getNome();
             BigDecimal precoCusto = produto.getPrecoCusto();
             String categoria = produto.getCategoria().getNome();
-            BigDecimal percentual = produto.getCategoria().getPercentualLucro();
 
-            modelo.addRow(new Object[]{nome, precoCusto, categoria, percentual});
+            modelo.addRow(new Object[]{nome, precoCusto, categoria});
         }
+    }
+
+    @Override
+    public void atualizar(LocalDate data) {
+        DefaultTableModel modelo = (DefaultTableModel) view.getTbProdutos().getModel();
+        int i = 0;
+
+        for (HistoricoPrecoModel registro : historicoPrecoRepository.getHistoricoPorData(data)) {
+            modelo.setValueAt(registro.getPercentualLucro(), i, 3);
+            modelo.setValueAt(registro.getPrecoVenda(), i, 4);
+            i++;
+        }
+    }
+
+    public BuscarProdutosView getView() {
+        return view;
     }
 }

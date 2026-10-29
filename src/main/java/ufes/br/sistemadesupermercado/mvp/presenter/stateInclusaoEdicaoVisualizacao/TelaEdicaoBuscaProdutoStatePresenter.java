@@ -3,10 +3,12 @@ package ufes.br.sistemadesupermercado.mvp.presenter.stateInclusaoEdicaoVisualiza
 import ufes.br.sistemadesupermercado.mvp.model.CategoriaModel;
 import ufes.br.sistemadesupermercado.mvp.model.ProdutoModel;
 import ufes.br.sistemadesupermercado.mvp.repository.ICategoriaRepository;
+import ufes.br.sistemadesupermercado.mvp.repository.IHistoricoPrecoRepository;
 import ufes.br.sistemadesupermercado.mvp.repository.IProdutoRepository;
 import ufes.br.sistemadesupermercado.mvp.view.InclusaoEdicaoVisualizacaoProdutoView;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -17,13 +19,15 @@ public class TelaEdicaoBuscaProdutoStatePresenter extends InclusaoEdicaoVisualiz
 
     private IProdutoRepository produtoRepository;
     private ICategoriaRepository categoriaRepository;
+    private IHistoricoPrecoRepository historicoPrecoRepository;
     private List<ActionListener> monitores;
 
 
-    public TelaEdicaoBuscaProdutoStatePresenter(InclusaoEdicaoVisualizacaoProdutoView view, String nome, IProdutoRepository produtoRepository, ICategoriaRepository categoriaRepository) {
+    public TelaEdicaoBuscaProdutoStatePresenter(InclusaoEdicaoVisualizacaoProdutoView view, String nome, IProdutoRepository produtoRepository, ICategoriaRepository categoriaRepository, IHistoricoPrecoRepository historicoPrecoRepository) {
         super(view);
         this.produtoRepository = produtoRepository;
         this.categoriaRepository = categoriaRepository;
+        this.historicoPrecoRepository = historicoPrecoRepository;
         this.monitores = new ArrayList<>();
 
         configuraView(nome);
@@ -34,8 +38,8 @@ public class TelaEdicaoBuscaProdutoStatePresenter extends InclusaoEdicaoVisualiz
 
         view.setTitle("Produto - Inclusão/Edição");
         view.getBtnVisualizarHistorico().setVisible(false);
-        view.getTxtNomeProduto().setEnabled(true);
-        view.getTxtPrecoCusto().setEnabled(true);
+        view.getTxtNomeProduto().setEditable(true);
+        view.getTxtPrecoCusto().setEditable(true);
         view.getCbCategoria().setEnabled(true);
         view.getTxtMargem().setEditable(false);
         view.getTxtPrecoVenda().setEditable(false);
@@ -100,6 +104,6 @@ public class TelaEdicaoBuscaProdutoStatePresenter extends InclusaoEdicaoVisualiz
         view.getBtnEditar().removeActionListener(monitores.get(0));
         view.getBtnFechar().removeActionListener(monitores.get(1));
 
-        view.setEstado(new TelaVisualizacaoBuscaProdutoStatePresenter(view, nome, produtoRepository, categoriaRepository));
+        view.setEstado(new TelaVisualizacaoBuscaProdutoStatePresenter(view, nome, produtoRepository, categoriaRepository, historicoPrecoRepository));
     }
 }

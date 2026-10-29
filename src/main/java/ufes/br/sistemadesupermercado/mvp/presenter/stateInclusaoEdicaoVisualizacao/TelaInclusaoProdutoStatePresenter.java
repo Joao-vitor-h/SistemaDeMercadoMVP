@@ -32,8 +32,8 @@ public class TelaInclusaoProdutoStatePresenter extends InclusaoEdicaoVisualizaca
 
         view.setTitle("Produto - Inclusão/Edição");
         view.getBtnVisualizarHistorico().setVisible(false);
-        view.getTxtNomeProduto().setEnabled(true);
-        view.getTxtPrecoCusto().setEnabled(true);
+        view.getTxtNomeProduto().setEditable(true);
+        view.getTxtPrecoCusto().setEditable(true);
         view.getCbCategoria().setEnabled(true);
         view.getTxtMargem().setEditable(false);
         view.getTxtPrecoVenda().setEditable(false);

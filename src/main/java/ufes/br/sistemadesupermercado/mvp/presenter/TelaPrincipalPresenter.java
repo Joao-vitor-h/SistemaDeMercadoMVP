@@ -4,6 +4,7 @@ import ufes.br.sistemadesupermercado.mvp.presenter.stateInclusaoEdicaoVisualizac
 import ufes.br.sistemadesupermercado.mvp.repository.ICategoriaRepository;
 import ufes.br.sistemadesupermercado.mvp.repository.IHistoricoPrecoRepository;
 import ufes.br.sistemadesupermercado.mvp.repository.IProdutoRepository;
+import ufes.br.sistemadesupermercado.mvp.service.HistoricoDePrecoServiceObserver;
 import ufes.br.sistemadesupermercado.mvp.view.CategoriaProdutoView;
 import ufes.br.sistemadesupermercado.mvp.view.InclusaoEdicaoVisualizacaoProdutoView;
 import ufes.br.sistemadesupermercado.mvp.view.TelaPrincipalView;
@@ -33,38 +34,53 @@ public class TelaPrincipalPresenter {
     }
 
     private void configuraView() {
-
         view.setLocationRelativeTo(null);
         view.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+        HistoricoDePrecoServiceObserver registro = new HistoricoDePrecoServiceObserver(historicoPrecoRepository);
+
+        InclusaoEdicaoVisualizacaoProdutoView inclusao = new InclusaoEdicaoVisualizacaoProdutoView();
+        inclusao.setEstado(new TelaInclusaoProdutoStatePresenter(inclusao, produtoRepository, categoriaRepository));
+        inclusao.setVisible(false);
 
         view.getMenuItemIncluirDados().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                InclusaoEdicaoVisualizacaoProdutoView inclusao = new InclusaoEdicaoVisualizacaoProdutoView();
-                inclusao.setEstado(new TelaInclusaoProdutoStatePresenter(inclusao, produtoRepository, categoriaRepository));
+                inclusao.setVisible(true);
             }
         });
+
+        TelaBuscaProdutosPresenter buscaProduto = new TelaBuscaProdutosPresenter(produtoRepository, categoriaRepository, historicoPrecoRepository);
+        buscaProduto.getView().setVisible(false);
 
         view.getMenuItemBuscarProdutos().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                TelaBuscaProdutosPresenter buscaProduto = new TelaBuscaProdutosPresenter(produtoRepository, categoriaRepository);
+                buscaProduto.getView().setVisible(true);
             }
         });
+
+        CategoriaProdutoView telaCategoria = new CategoriaProdutoView(categoriaRepository, produtoRepository);
+        telaCategoria.setVisible(false);
 
         view.getMenuItemCategoria().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CategoriaProdutoView telaCategoria = new CategoriaProdutoView(categoriaRepository, produtoRepository);
+                telaCategoria.setVisible(true);
             }
         });
+
+        TelaCalculoMargemLucroPresenter calculoMargemLucro = new TelaCalculoMargemLucroPresenter(produtoRepository, historicoPrecoRepository, registro);
+        calculoMargemLucro.getView().setVisible(false);
 
         view.getMenuItemCalcularMargemDeLucro().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                TelaCalculoMargemLucroPresenter calculoMargemLucro = new TelaCalculoMargemLucroPresenter(produtoRepository, historicoPrecoRepository);
+                calculoMargemLucro.getView().setVisible(true);
             }
         });
+
+        registro.adicionarTela(buscaProduto);
 
         view.setVisible(true);
     }

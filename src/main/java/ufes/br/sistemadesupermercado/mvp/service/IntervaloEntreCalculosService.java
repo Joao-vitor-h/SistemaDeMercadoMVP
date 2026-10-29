@@ -4,11 +4,10 @@ import ufes.br.sistemadesupermercado.mvp.model.HistoricoPrecoModel;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
 
 public class IntervaloEntreCalculosService {
 
-    private LocalDate dataDoUltimoCalculo;
+    private static LocalDate dataDoUltimoCalculo;
 
     public boolean verificarIntervaloData(LocalDate data) {
 

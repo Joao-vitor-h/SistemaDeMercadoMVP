@@ -5,6 +5,7 @@ import ufes.br.sistemadesupermercado.mvp.repository.ICategoriaRepository;
 import ufes.br.sistemadesupermercado.mvp.repository.IProdutoRepository;
 import ufes.br.sistemadesupermercado.mvp.view.InclusaoEdicaoVisualizacaoProdutoView;
 
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class TelaVisualizacaoProdutoStatePresenter extends InclusaoEdicaoVisuali
         view.getTxtPrecoCusto().setText(String.valueOf(produto.getPrecoCusto()));
         view.getTxtNomeProduto().setEditable(false);
         view.getTxtPrecoCusto().setEditable(false);
-        view.getCbCategoria().setEditable(false);
+        view.getCbCategoria().setEnabled(false);
         view.getTxtPrecoVenda().setEditable(false);
         view.getTxtMargem().setEditable(false);
         view.getCbCategoria().setSelectedIndex(produto.getCategoria().getId() - 1);
