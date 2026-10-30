@@ -118,7 +118,7 @@ public class TelaBuscaProdutosObserverPresenter implements IHistoricoObserver {
                     nomeProduto.clear();
 
                     InclusaoEdicaoVisualizacaoProdutoView telaVisualiza = new InclusaoEdicaoVisualizacaoProdutoView();
-                    telaVisualiza.setEstado(new TelaVisualizacaoBuscaProdutoStatePresenter(telaVisualiza, nome, produtoRepository, categoriaRepository, historicoPrecoRepository));
+                    telaVisualiza.setEstado(new TelaVisualizacaoBuscaProdutoStatePresenter(telaVisualiza, nome, produtoRepository, categoriaRepository, historicoPrecoRepository, modeloTabelaProdutos));
                 } catch (RuntimeException ex) {
                     JOptionPane.showMessageDialog(view, "Selecione um produto!");
                 }

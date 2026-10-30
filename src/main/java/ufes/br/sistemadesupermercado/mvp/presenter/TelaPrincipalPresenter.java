@@ -10,6 +10,7 @@ import ufes.br.sistemadesupermercado.mvp.view.InclusaoEdicaoVisualizacaoProdutoV
 import ufes.br.sistemadesupermercado.mvp.view.TelaPrincipalView;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
@@ -39,17 +40,6 @@ public class TelaPrincipalPresenter {
 
         HistoricoDePrecoServiceObserver registro = new HistoricoDePrecoServiceObserver(historicoPrecoRepository);
 
-        InclusaoEdicaoVisualizacaoProdutoView inclusao = new InclusaoEdicaoVisualizacaoProdutoView();
-        inclusao.setEstado(new TelaInclusaoProdutoStatePresenter(inclusao, produtoRepository, categoriaRepository));
-        inclusao.setVisible(false);
-
-        view.getMenuItemIncluirDados().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                inclusao.setVisible(true);
-            }
-        });
-
         TelaBuscaProdutosObserverPresenter buscaProduto = new TelaBuscaProdutosObserverPresenter(produtoRepository, categoriaRepository, historicoPrecoRepository);
         buscaProduto.getView().setVisible(false);
 
@@ -60,23 +50,25 @@ public class TelaPrincipalPresenter {
             }
         });
 
-        CategoriaProdutoView telaCategoria = new CategoriaProdutoView(categoriaRepository, produtoRepository);
-        telaCategoria.setVisible(false);
+        view.getMenuItemIncluirDados().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                InclusaoEdicaoVisualizacaoProdutoView inclusao = new InclusaoEdicaoVisualizacaoProdutoView();
+                inclusao.setEstado(new TelaInclusaoProdutoStatePresenter(inclusao, produtoRepository, categoriaRepository, (DefaultTableModel) buscaProduto.getView().getTbProdutos().getModel()));
+            }
+        });
 
         view.getMenuItemCategoria().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                telaCategoria.setVisible(true);
+                CategoriaProdutoView telaCategoria = new CategoriaProdutoView(categoriaRepository, produtoRepository);
             }
         });
-
-        TelaCalculoMargemLucroPresenter calculoMargemLucro = new TelaCalculoMargemLucroPresenter(produtoRepository, historicoPrecoRepository, registro);
-        calculoMargemLucro.getView().setVisible(false);
 
         view.getMenuItemCalcularMargemDeLucro().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                calculoMargemLucro.getView().setVisible(true);
+                TelaCalculoMargemLucroPresenter calculoMargemLucro = new TelaCalculoMargemLucroPresenter(produtoRepository, historicoPrecoRepository, registro);
             }
         });
 

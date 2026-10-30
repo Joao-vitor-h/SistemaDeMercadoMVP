@@ -33,6 +33,8 @@ public class TelaInclusaoBuscaProdutoStatePresenter extends InclusaoEdicaoVisual
     private void configuraView() {
         view.setLocationRelativeTo(null);
 
+        inserirCategorias(categoriaRepository);
+
         view.setTitle("Produto - Inclusão/Edição");
         view.getBtnVisualizarHistorico().setVisible(false);
         view.getTxtNomeProduto().setEditable(true);

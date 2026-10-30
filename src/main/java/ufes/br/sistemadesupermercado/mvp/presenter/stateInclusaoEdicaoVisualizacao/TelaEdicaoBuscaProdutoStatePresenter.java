@@ -21,13 +21,15 @@ public class TelaEdicaoBuscaProdutoStatePresenter extends InclusaoEdicaoVisualiz
     private ICategoriaRepository categoriaRepository;
     private IHistoricoPrecoRepository historicoPrecoRepository;
     private List<ActionListener> monitores;
+    private DefaultTableModel modelo;
 
 
-    public TelaEdicaoBuscaProdutoStatePresenter(InclusaoEdicaoVisualizacaoProdutoView view, String nome, IProdutoRepository produtoRepository, ICategoriaRepository categoriaRepository, IHistoricoPrecoRepository historicoPrecoRepository) {
+    public TelaEdicaoBuscaProdutoStatePresenter(InclusaoEdicaoVisualizacaoProdutoView view, String nome, IProdutoRepository produtoRepository, ICategoriaRepository categoriaRepository, IHistoricoPrecoRepository historicoPrecoRepository, DefaultTableModel modelo) {
         super(view);
         this.produtoRepository = produtoRepository;
         this.categoriaRepository = categoriaRepository;
         this.historicoPrecoRepository = historicoPrecoRepository;
+        this.modelo = modelo;
         this.monitores = new ArrayList<>();
 
         configuraView(nome);
@@ -70,6 +72,14 @@ public class TelaEdicaoBuscaProdutoStatePresenter extends InclusaoEdicaoVisualiz
 
                         Optional<CategoriaModel> categoriaOpt = categoriaRepository.buscarCategoria(categoria.toString());
 
+                        for (int i = 0; i < modelo.getRowCount(); i++) {
+                            if (produto.getNome().equalsIgnoreCase(modelo.getValueAt(i, 0).toString())) {
+                                modelo.setValueAt(novoNome, i, 0);
+                                modelo.setValueAt(preco, i, 1);
+                                modelo.setValueAt(categoriaOpt.get().getNome(), i, 2);
+                            }
+                        }
+
                         produtoRepository.editarProduto(produto.getNome(), novoNome, preco, categoriaOpt.get());
 
                         view.visualizar(novoNome);
@@ -104,6 +114,6 @@ public class TelaEdicaoBuscaProdutoStatePresenter extends InclusaoEdicaoVisualiz
         view.getBtnEditar().removeActionListener(monitores.get(0));
         view.getBtnFechar().removeActionListener(monitores.get(1));
 
-        view.setEstado(new TelaVisualizacaoBuscaProdutoStatePresenter(view, nome, produtoRepository, categoriaRepository, historicoPrecoRepository));
+        view.setEstado(new TelaVisualizacaoBuscaProdutoStatePresenter(view, nome, produtoRepository, categoriaRepository, historicoPrecoRepository, modelo));
     }
 }

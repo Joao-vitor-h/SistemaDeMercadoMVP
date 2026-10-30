@@ -1,10 +1,12 @@
 package ufes.br.sistemadesupermercado.mvp.presenter.stateInclusaoEdicaoVisualizacao;
 
+import ufes.br.sistemadesupermercado.mvp.model.CategoriaModel;
 import ufes.br.sistemadesupermercado.mvp.model.ProdutoModel;
 import ufes.br.sistemadesupermercado.mvp.repository.ICategoriaRepository;
 import ufes.br.sistemadesupermercado.mvp.repository.IProdutoRepository;
 import ufes.br.sistemadesupermercado.mvp.view.InclusaoEdicaoVisualizacaoProdutoView;
 
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,6 +30,9 @@ public class TelaVisualizacaoProdutoStatePresenter extends InclusaoEdicaoVisuali
 
     private void configuraView(String nomeProduto) {
         view.setLocationRelativeTo(null);
+
+        removerCategorias(categoriaRepository);
+        inserirCategorias(categoriaRepository);
 
         ProdutoModel produto = produtoRepository.buscarProduto(nomeProduto).get();
 
@@ -53,7 +58,7 @@ public class TelaVisualizacaoProdutoStatePresenter extends InclusaoEdicaoVisuali
         ActionListener fecha = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                view.incluir();
+                view.dispose();
             }
         };
 
@@ -81,6 +86,6 @@ public class TelaVisualizacaoProdutoStatePresenter extends InclusaoEdicaoVisuali
         view.getBtnEditar().removeActionListener(monitores.get(0));
         view.getBtnFechar().removeActionListener(monitores.get(1));
 
-        view.setEstado(new TelaInclusaoProdutoStatePresenter(view, produtoRepository, categoriaRepository));
+        //view.setEstado(new TelaInclusaoProdutoStatePresenter(view, produtoRepository, categoriaRepository));
     }
 }

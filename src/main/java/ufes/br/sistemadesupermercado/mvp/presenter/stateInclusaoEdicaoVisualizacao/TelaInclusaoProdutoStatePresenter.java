@@ -18,18 +18,20 @@ public class TelaInclusaoProdutoStatePresenter extends InclusaoEdicaoVisualizaca
     private ICategoriaRepository categoriaRepository;
     private List<ActionListener> monitores;
 
-    public TelaInclusaoProdutoStatePresenter(InclusaoEdicaoVisualizacaoProdutoView view, IProdutoRepository produtoRepository, ICategoriaRepository categoriaRepository) {
+    public TelaInclusaoProdutoStatePresenter(InclusaoEdicaoVisualizacaoProdutoView view, IProdutoRepository produtoRepository, ICategoriaRepository categoriaRepository, DefaultTableModel modelo) {
         super(view);
         this.produtoRepository = produtoRepository;
         this.categoriaRepository = categoriaRepository;
         this.monitores = new ArrayList<>();
 
-        configuraView();
+        configuraView(modelo);
     }
 
     // Aplicar padrão Observer sempre que ocorrer uma inserção na tela de busca dos produtos.
-    private void configuraView() {
+    private void configuraView(DefaultTableModel modelo) {
         view.setLocationRelativeTo(null);
+
+        inserirCategorias(categoriaRepository);
 
         view.setTitle("Produto - Inclusão/Edição");
         view.getBtnVisualizarHistorico().setVisible(false);
@@ -50,6 +52,8 @@ public class TelaInclusaoProdutoStatePresenter extends InclusaoEdicaoVisualizaca
                         String nome = view.getTxtNomeProduto().getText();
                         double preco = Double.parseDouble(view.getTxtPrecoCusto().getText());
                         Object categoria = view.getCbCategoria().getSelectedItem();
+
+                        modelo.addRow(new Object[]{nome, preco, categoria.toString()});
 
                         criarNovoProduto(nome, preco, categoria.toString());
                     } catch (RuntimeException ex) {

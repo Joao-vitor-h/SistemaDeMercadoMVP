@@ -3,7 +3,6 @@ package ufes.br.sistemadesupermercado.mvp.view;
 import ufes.br.sistemadesupermercado.mvp.presenter.stateInclusaoEdicaoVisualizacao.InclusaoEdicaoVisualizacaoViewState;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.Objects;
 
@@ -59,8 +58,6 @@ public class InclusaoEdicaoVisualizacaoProdutoView extends javax.swing.JFrame {
         lblMargem.setText("Margem de Lucro (%):");
 
         lblPrecoVenda.setText("Preço de Venda:");
-
-        cbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Educação", "Papelaria", "Alimentação", "Lazer", "Entretenimento", "Higiene", "Limpeza" }));
 
         dpDadosProduto.setLayer(lblNomeProduto, javax.swing.JLayeredPane.DEFAULT_LAYER);
         dpDadosProduto.setLayer(lblPrecoCusto, javax.swing.JLayeredPane.DEFAULT_LAYER);

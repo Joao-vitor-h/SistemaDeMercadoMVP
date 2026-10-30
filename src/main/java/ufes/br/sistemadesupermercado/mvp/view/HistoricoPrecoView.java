@@ -41,21 +41,12 @@ public class HistoricoPrecoView extends javax.swing.JFrame {
 
         lblCategoria.setText("Categoria:");
 
-        txtProduto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtProduto.setHorizontalAlignment(javax.swing.JTextField.LEFT);
 
         tblHistorico.setAutoCreateRowSorter(true);
         tblHistorico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Data", "Percentual de Lucro (%)", "Preço de Venda"
